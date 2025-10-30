@@ -2,16 +2,27 @@ package dao;
 
 import java.util.List;
 
+import model.Provincia;
 
 /**
- * @author domen
+ * Interfície DAO per Provincia (READ-ONLY)
+ * Taula mestre de catàleg - només operacions de consulta
+ * 
+ * @author DomenechObiolAlbert
  * @version 1.0
- * @created 24-oct.-2025 10:36:57
  */
 public interface IDAOProvincia {
-
-	public List findAll();
-
-	public Object findById();
-
+    
+    /**
+     * Obté totes les províncies
+     * @return Llista de totes les províncies
+     */
+    List<Provincia> findAll();
+    
+    /**
+     * Cerca una província pel seu codi
+     * @param codi Codi de la província (PK)
+     * @return Provincia trobada o null si no existeix
+     */
+    Provincia findById(String codi);
 }

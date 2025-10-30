@@ -2,16 +2,27 @@ package dao;
 
 import java.util.List;
 
+import model.UnitatMesura;
 
 /**
- * @author domen
+ * Interfície DAO per UnitatMesura (READ-ONLY)
+ * Taula mestre de catàleg - només operacions de consulta
+ * 
+ * @author DomenechObiolAlbert
  * @version 1.0
- * @created 24-oct.-2025 10:36:58
  */
 public interface IDAOUnitatMesura {
-
-	public List findAll();
-
-	public Object findById();
-
+    
+    /**
+     * Obté totes les unitats de mesura
+     * @return Llista de totes les unitats de mesura
+     */
+    List<UnitatMesura> findAll();
+    
+    /**
+     * Cerca una unitat de mesura pel seu codi
+     * @param codi Codi de la unitat de mesura (PK)
+     * @return UnitatMesura trobada o null si no existeix
+     */
+    UnitatMesura findById(String codi);
 }
