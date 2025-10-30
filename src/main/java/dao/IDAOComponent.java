@@ -1,34 +1,86 @@
 package dao;
 
-import java.awt.Component;
 import java.util.List;
 
+import model.Component;
 
 /**
- * @author domen
+ * Interfície DAO per a la gestió de Components
+ * Defineix operacions CRUD + mètodes específics
+ * 
+ * @author DomenechObiolAlbert
  * @version 1.0
- * @created 24-oct.-2025 10:36:50
  */
 public interface IDAOComponent {
 
-	public boolean actualitzar();
+    /**
+     * Insereix un nou component a la BD
+     * @param c Component a inserir
+     * @return true si s'ha inserit correctament
+     */
+    boolean insertar(Component c);
 
-	public int countTotal();
+    /**
+     * Actualitza un component existent
+     * @param c Component amb dades actualitzades
+     * @return true si s'ha actualitzat correctament
+     */
+    boolean actualitzar(Component c);
 
-	public boolean eliminar();
+    /**
+     * Elimina un component per codi
+     * @param codi Codi del component a eliminar
+     * @return true si s'ha eliminat correctament
+     */
+    boolean eliminar(String codi);
 
-	public List filtrarPerCodi();
+    /**
+     * Busca un component per codi
+     * @param codi Codi del component
+     * @return Component trobat o null si no existeix
+     */
+    Component findById(String codi);
 
-	public List filtrarPerPreuMig();
+    /**
+     * Llista tots els components
+     * @return Llista de tots els components
+     */
+    List<Component> findAll();
 
-	public List findAll();
+    /**
+     * Llista components paginats
+     * @param page Número de pàgina (començant per 1)
+     * @param size Mida de la pàgina
+     * @return Llista de components de la pàgina
+     */
+    List<Component> findAllPaginat(int page, int size);
 
-	public List findAllPaginat();
+    /**
+     * Filtra components per codi (LIKE)
+     * @param codiPattern Patró de cerca (ex: "CMP%")
+     * @return Llista de components que compleixen el patró
+     */
+    List<Component> filtrarPerCodi(String codiPattern);
 
-	public Object findById();
+    /**
+     * Filtra components per rang de preu mitjà
+     * @param min Preu mínim
+     * @param max Preu màxim
+     * @return Llista de components dins el rang
+     */
+    List<Component> filtrarPerPreuMig(double min, double max);
 
-	public Component getComponentAmbPreuActualitzat();
+    /**
+     * Obté component amb preu actualitzat (recarrega de BD)
+     * IMPORTANT: Això refresca cm_preu_mig que calculen els triggers
+     * @param cmCodi Codi del component
+     * @return Component amb preu actualitzat
+     */
+    Component getComponentAmbPreuActualitzat(String cmCodi);
 
-	public boolean insertar();
-
+    /**
+     * Compta el total de components
+     * @return Número total de components
+     */
+    int countTotal();
 }

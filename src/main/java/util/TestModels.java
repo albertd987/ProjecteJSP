@@ -1,4 +1,4 @@
-package test;
+package util;
 
 
 import java.sql.Connection;
@@ -14,7 +14,6 @@ import model.Producte;
 import model.ProvComp;
 import model.Provincia;
 import model.UnitatMesura;
-
 /**
  * Tests simples per validar models contra Oracle Database
  * Tests directes amb JDBC sense capa DAO
@@ -49,10 +48,10 @@ public class TestModels {
             }
             
             // Validar
-            System.out.println("✅ S'han trobat " + unitats.size() + " unitats de mesura\n");
+            System.out.println("S'han trobat " + unitats.size() + " unitats de mesura\n");
             
             for (UnitatMesura um : unitats) {
-                System.out.println("   📦 " + um.getUmCodi() + " - " + um.getUmNom());
+                System.out.println("   " + um.getUmCodi() + " - " + um.getUmNom());
                 
                 // Validar que no hi ha nulls
                 assert um.getUmCodi() != null : "Codi no pot ser null";
@@ -64,10 +63,10 @@ public class TestModels {
                 System.out.println("\n   toString(): " + unitats.get(0));
             }
             
-            System.out.println("\n✅ Model UnitatMesura funciona correctament!");
+            System.out.println("\nModel UnitatMesura funciona correctament!");
             
         } catch (SQLException e) {
-            System.err.println("❌ Error: " + e.getMessage());
+            System.err.println("Error: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -96,18 +95,18 @@ public class TestModels {
                 provincies.add(pr);
             }
             
-            System.out.println("✅ S'han trobat " + provincies.size() + " províncies\n");
+            System.out.println("S'han trobat " + provincies.size() + " províncies\n");
             
             for (Provincia pr : provincies) {
-                System.out.println("   📍 " + pr.getPrCodi() + " - " + pr.getPrNom());
+                System.out.println("   " + pr.getPrCodi() + " - " + pr.getPrNom());
                 assert pr.getPrCodi() != null;
                 assert pr.getPrNom() != null;
             }
             
-            System.out.println("\n✅ Model Provincia funciona correctament!");
+            System.out.println("\nModel Provincia funciona correctament!");
             
         } catch (SQLException e) {
-            System.err.println("❌ Error: " + e.getMessage());
+            System.err.println("Error: " + e.getMessage());
         }
     }
     
@@ -136,19 +135,19 @@ public class TestModels {
                 municipis.add(mu);
             }
             
-            System.out.println("✅ S'han trobat " + municipis.size() + " municipis\n");
+            System.out.println("S'han trobat " + municipis.size() + " municipis\n");
             
             for (Municipi mu : municipis) {
-                System.out.println("   🏙️  " + mu.getMuPrCodi() + "-" + mu.getMuNum() + " - " + mu.getMuNom());
+                System.out.println("   " + mu.getMuPrCodi() + "-" + mu.getMuNum() + " - " + mu.getMuNom());
                 assert mu.getMuPrCodi() != null;
                 assert mu.getMuNum() != null;
                 assert mu.getMuNom() != null;
             }
             
-            System.out.println("\n✅ Model Municipi funciona correctament!");
+            System.out.println("\nModel Municipi funciona correctament!");
             
         } catch (SQLException e) {
-            System.err.println("❌ Error: " + e.getMessage());
+            System.err.println("Error: " + e.getMessage());
         }
     }
     
@@ -197,10 +196,10 @@ public class TestModels {
                 components.add(comp);
             }
             
-            System.out.println("✅ S'han trobat " + components.size() + " components\n");
+            System.out.println("S'han trobat " + components.size() + " components\n");
             
             for (Component comp : components) {
-                System.out.println("   🔧 " + comp.getCmCodi() + " - " + comp.getItNom());
+                System.out.println("    " + comp.getCmCodi() + " - " + comp.getItNom());
                 System.out.println("      Fabricant: " + comp.getCmCodiFabricant());
                 System.out.println("      Preu Mig: " + comp.getCmPreuMig() + " € (calculat pels triggers!)");
                 System.out.println("      Stock: " + comp.getItStock() + " " + comp.getCmUmCodi());
@@ -213,12 +212,12 @@ public class TestModels {
                 assert comp.getCmPreuMig() >= 0 : "Preu no pot ser negatiu";
             }
             
-            System.out.println("✅ Model Component funciona correctament!");
-            System.out.println("   ⚡ Herència Item → Component OK");
-            System.out.println("   ⚡ Preu mitjà calculat pels triggers OK");
+            System.out.println(" Model Component funciona correctament!");
+            System.out.println("    Herència Item → Component OK");
+            System.out.println("    Preu mitjà calculat pels triggers OK");
             
         } catch (SQLException e) {
-            System.err.println("❌ Error: " + e.getMessage());
+            System.err.println(" Error: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -264,10 +263,10 @@ public class TestModels {
                 productes.add(prod);
             }
             
-            System.out.println("✅ S'han trobat " + productes.size() + " productes\n");
+            System.out.println("S'han trobat " + productes.size() + " productes\n");
             
             for (Producte prod : productes) {
-                System.out.println("   📦 " + prod.getPrCodi() + " - " + prod.getItNom());
+                System.out.println("    " + prod.getPrCodi() + " - " + prod.getItNom());
                 System.out.println("      Descripció: " + prod.getItDesc());
                 System.out.println("      Stock: " + prod.getItStock());
                 System.out.println();
@@ -276,10 +275,10 @@ public class TestModels {
                 assert prod.getItNom() != null;
             }
             
-            System.out.println("✅ Model Producte funciona correctament!");
+            System.out.println(" Model Producte funciona correctament!");
             
         } catch (SQLException e) {
-            System.err.println("❌ Error: " + e.getMessage());
+            System.err.println(" Error: " + e.getMessage());
         }
     }
     
@@ -312,14 +311,14 @@ public class TestModels {
                 relacions.add(pc);
             }
             
-            System.out.println("✅ S'han trobat " + relacions.size() + " relacions proveïdor-component\n");
+            System.out.println("S'han trobat " + relacions.size() + " relacions proveïdor-component\n");
             
             // Mostrar alguns exemples
             int count = 0;
             for (ProvComp pc : relacions) {
                 if (count++ < 5) {  // Només mostrem els 5 primers
-                    System.out.println("   🔗 Component " + pc.getPcCmCodi() + 
-                                     " ← Proveïdor " + pc.getPcPvCodi() + 
+                    System.out.println("   Component " + pc.getPcCmCodi() + 
+                                     " - Proveïdor " + pc.getPcPvCodi() + 
                                      " = " + pc.getPcPreu() + " €");
                 }
             }
@@ -327,13 +326,13 @@ public class TestModels {
                 System.out.println("   ... i " + (relacions.size() - 5) + " més");
             }
             
-            System.out.println("\n⚠️  RECORDATORI: INSERT/UPDATE/DELETE en aquesta taula");
+            System.out.println("\n  RECORDATORI: INSERT/UPDATE/DELETE en aquesta taula");
             System.out.println("   disparen el trigger que recalcula cm_preu_mig!");
             
-            System.out.println("\n✅ Model ProvComp funciona correctament!");
+            System.out.println("\n Model ProvComp funciona correctament!");
             
         } catch (SQLException e) {
-            System.err.println("❌ Error: " + e.getMessage());
+            System.err.println(" Error: " + e.getMessage());
         }
     }
     
@@ -362,7 +361,7 @@ public class TestModels {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             
-            System.out.println("📊 Validant que cm_preu_mig = AVG(pc_preu)...\n");
+            System.out.println(" Validant que cm_preu_mig = AVG(pc_preu)...\n");
             
             int correctes = 0;
             int total = 0;
@@ -383,22 +382,22 @@ public class TestModels {
                 
                 if (esCorrecte) {
                     correctes++;
-                    System.out.println("   ✅ " + codi + ": " + preuMig + " € (proveidors: " + numProveidors + ")");
+                    System.out.println("    " + codi + ": " + preuMig + " € (proveidors: " + numProveidors + ")");
                 } else {
-                    System.out.println("   ❌ " + codi + ": BD=" + preuMig + " € vs Calculat=" + preuCalculat + " €");
+                    System.out.println("    " + codi + ": BD=" + preuMig + " € vs Calculat=" + preuCalculat + " €");
                 }
             }
             
             System.out.println("\n📈 RESULTAT: " + correctes + "/" + total + " components amb preu correcte");
             
             if (correctes == total) {
-                System.out.println("✅ Els triggers funcionen perfectament!");
+                System.out.println(" Els triggers funcionen perfectament!");
             } else {
-                System.out.println("⚠️  Alguns preus no coincideixen - revisa els triggers!");
+                System.out.println("  Alguns preus no coincideixen - revisa els triggers!");
             }
             
         } catch (SQLException e) {
-            System.err.println("❌ Error: " + e.getMessage());
+            System.err.println(" Error: " + e.getMessage());
         }
     }
     
@@ -417,7 +416,7 @@ public class TestModels {
             // Test de connexió primer
             System.out.println("\n🔍 Verificant connexió...");
             try (Connection conn = ConnexioOracle.getConnection()) {
-                System.out.println("✅ Connexió a Oracle OK!");
+                System.out.println(" Connexió a Oracle OK!");
             }
             
             // Executar tots els tests
@@ -428,18 +427,17 @@ public class TestModels {
             testProducte();
             testProvComp();
             testPreuMigCalculat();
-            
+
             // Resum final
             System.out.println("\n" + "=".repeat(50));
-            System.out.println("🎉 TOTS ELS TESTS HAN FINALITZAT");
+            System.out.println(" TOTS ELS TESTS HAN FINALITZAT");
             System.out.println("=".repeat(50));
-            System.out.println("\n✅ Els models funcionen correctament amb Oracle!");
-            System.out.println("✅ Les herències (Item → Component/Producte) funcionen!");
-            System.out.println("✅ Els triggers de preu_mig funcionen!");
-            System.out.println("\n🚀 Ja pots començar a implementar els DAOs complets!");
+            System.out.println("\n Els models funcionen correctament amb Oracle!");
+            System.out.println(" Les herències (Item → Component/Producte) funcionen!");
+            System.out.println(" Els triggers de preu_mig funcionen!");
             
         } catch (Exception e) {
-            System.err.println("\n❌ Error general: " + e.getMessage());
+            System.err.println("\n Error general: " + e.getMessage());
             e.printStackTrace();
         }
     }

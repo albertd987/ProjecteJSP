@@ -1,77 +1,146 @@
 package abstractdao;
 
 import dao.IDAOComponent;
-import java.awt.Component;
+import model.Component;
+import util.ConnexioOracle;
+
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 /**
- * @author domen
+ * Classe abstracta base per a DAOComponent
+ * Proporciona mètodes utils comuns per totes les implementacions
+ * 
+ * @author DomenechObiolAlbert
  * @version 1.0
- * @created 24-oct.-2025 10:37:32
  */
 public abstract class AbstractDAOComponent implements IDAOComponent {
 
-	public AbstractDAOComponent(){
+    public AbstractDAOComponent() {
+    }
 
-	}
+    /**
+     * Obté una connexió a la base de dades Oracle
+     * @return Connection activa
+     * @throws SQLException si hi ha error de connexió
+     */
+    protected Connection getConnection() throws SQLException {
+        return ConnexioOracle.getConnection();
+    }
 
-	public void finalize() throws Throwable {
+    /**
+     * Tanca els recursos JDBC de forma segura
+     * @param conn Connexió a tancar
+     */
+    protected void tancarRecursos(Connection conn) {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                System.err.println("⚠️  Error tancant connexió: " + e.getMessage());
+            }
+        }
+    }
 
-	}
-	public Connection getConnection(){
-		return null;
-	}
+    /**
+     * Tanca Statement de forma segura
+     * @param stmt Statement a tancar
+     */
+    protected void tancarRecursos(Statement stmt) {
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                System.err.println("⚠️  Error tancant statement: " + e.getMessage());
+            }
+        }
+    }
 
-	public void logError(){
+    /**
+     * Tanca ResultSet de forma segura
+     * @param rs ResultSet a tancar
+     */
+    protected void tancarRecursos(ResultSet rs) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                System.err.println("⚠️  Error tancant resultset: " + e.getMessage());
+            }
+        }
+    }
 
-	}
+    /**
+     * Registra errors SQL al log
+     * @param e Excepció SQL a registrar
+     */
+    protected void logError(SQLException e) {
+        System.err.println("❌ Error SQL en DAOComponent:");
+        System.err.println("   Missatge: " + e.getMessage());
+        System.err.println("   Codi error: " + e.getErrorCode());
+        System.err.println("   SQL State: " + e.getSQLState());
+        e.printStackTrace();
+    }
 
-	public void tancarRecursos(){
+    /**
+     * Valida que l'entitat Component tingui dades vàlides
+     * @param c Component a validar
+     * @return true si és vàlid, false si no
+     */
+    protected boolean validarEntitat(Component c) {
+        if (c == null) {
+            System.err.println("❌ Component no pot ser null");
+            return false;
+        }
+        if (c.getCmCodi() == null || c.getCmCodi().trim().isEmpty()) {
+            System.err.println("❌ Codi component obligatori");
+            return false;
+        }
+        if (c.getCmUmCodi() == null || c.getCmUmCodi().trim().isEmpty()) {
+            System.err.println("❌ Unitat mesura obligatòria");
+            return false;
+        }
+        if (c.getCmCodiFabricant() == null || c.getCmCodiFabricant().trim().isEmpty()) {
+            System.err.println("❌ Codi fabricant obligatori");
+            return false;
+        }
+        return true;
+    }
 
-	}
+    // ============================================
+    // Mètodes abstractes (a implementar per DAOComponent)
+    // ============================================
 
-	public boolean validarEntitat(){
-		return false;
-	}
+    @Override
+    public abstract boolean actualitzar(Component c);
 
-	public boolean actualitzar(){
-		return false;
-	}
+    @Override
+    public abstract int countTotal();
 
-	public int countTotal(){
-		return 0;
-	}
+    @Override
+    public abstract boolean eliminar(String codi);
 
-	public boolean eliminar(){
-		return false;
-	}
+    @Override
+    public abstract List<Component> filtrarPerCodi(String codiPattern);
 
-	public List filtrarPerCodi(){
-		return null;
-	}
+    @Override
+    public abstract List<Component> filtrarPerPreuMig(double min, double max);
 
-	public List filtrarPerPreuMig(){
-		return null;
-	}
+    @Override
+    public abstract List<Component> findAll();
 
-	public List findAll(){
-		return null;
-	}
+    @Override
+    public abstract List<Component> findAllPaginat(int page, int size);
 
-	public List findAllPaginat(){
-		return null;
-	}
+    @Override
+    public abstract Component findById(String codi);
 
-	public Object findById(){
-		return null;
-	}
+    @Override
+    public abstract Component getComponentAmbPreuActualitzat(String cmCodi);
 
-	public Component getComponentAmbPreuActualitzat(){
-		return null;
-	}
-
-	public boolean insertar(){
-		return false;
-	}
-}//end AbstractDAOComponent
+    @Override
+    public abstract boolean insertar(Component c);
+}

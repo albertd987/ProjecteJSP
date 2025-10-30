@@ -1,4 +1,4 @@
-package test;
+package util;
 
 
 import java.io.InputStream;
@@ -24,7 +24,7 @@ public class ConnexioOracle {
                 .getResourceAsStream("db.properties")) {
             
             if (input == null) {
-                System.err.println("❌ No s'ha trobat db.properties");
+                System.err.println("No s'ha trobat db.properties");
                 throw new RuntimeException("Fitxer db.properties no trobat");
             }
             
@@ -51,18 +51,18 @@ public class ConnexioOracle {
      * Test ràpid de connexió
      */
     public static void main(String[] args) {
-        System.out.println("🔍 Provant connexió a Oracle...\n");
+        System.out.println(" Provant connexió a Oracle...\n");
         
         try (Connection conn = getConnection()) {
-            System.out.println("✅ Connexió exitosa!");
+            System.out.println(" Connexió exitosa!");
             System.out.println("   BD: " + conn.getMetaData().getDatabaseProductName());
             System.out.println("   Versió: " + conn.getMetaData().getDatabaseProductVersion());
             System.out.println("   URL: " + conn.getMetaData().getURL());
             
         } catch (SQLException e) {
-            System.err.println("❌ Error de connexió:");
+            System.err.println(" Error de connexió:");
             System.err.println("   " + e.getMessage());
-            System.err.println("\n💡 Revisa db.properties amb les teves credencials!");
+            System.err.println("\n Revisa db.properties amb les teves credencials!");
         }
     }
 }
