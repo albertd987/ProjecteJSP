@@ -435,7 +435,7 @@ public class TestModels {
             System.out.println("\n Els models funcionen correctament amb Oracle!");
             System.out.println(" Les herències (Item → Component/Producte) funcionen!");
             System.out.println(" Els triggers de preu_mig funcionen!");
-            
+
         } catch (Exception e) {
             System.err.println("\n Error general: " + e.getMessage());
             e.printStackTrace();
