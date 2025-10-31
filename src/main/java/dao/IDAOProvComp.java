@@ -2,30 +2,78 @@ package dao;
 
 import java.util.List;
 
+import model.ProvComp;
 
 /**
- * @author domen
+ * Interfície DAO per a la gestió de Proveïdor-Component (relació N:N)
+ * 
+ * ⚠️ CRÍTICA: Aquesta taula dispara triggers Oracle!
+ * Cada INSERT/UPDATE/DELETE recalcula automàticament cm_preu_mig
+ * via trigger trg_prov_comp_after → preu_mig_pkg.recalcula_tots_preus()
+ * 
+ * @author DomenechObiolAlbert
  * @version 1.0
- * @created 24-oct.-2025 10:36:55
  */
 public interface IDAOProvComp {
 
-	public boolean actualitzar();
+    /**
+     * Insereix una nova relació proveïdor-component
+     * ⚠️ DISPARA TRIGGER que recalcula cm_preu_mig
+     * 
+     * @param pc Relació proveïdor-component a inserir
+     * @return true si s'ha inserit correctament
+     */
+    boolean insertar(ProvComp pc);
 
-	public boolean actualitzarPreuProveidor();
+    /**
+     * Actualitza el preu d'una relació existent
+     * ⚠️ DISPARA TRIGGER que recalcula cm_preu_mig
+     * 
+     * @param pc Relació amb dades actualitzades
+     * @return true si s'ha actualitzat correctament
+     */
+    boolean actualitzar(ProvComp pc);
 
-	public boolean afegirProveidorAComponent();
+    /**
+     * Elimina una relació proveïdor-component
+     * ⚠️ DISPARA TRIGGER que recalcula cm_preu_mig
+     * 
+     * @param cmCodi Codi del component (PK composta)
+     * @param pvCodi Codi del proveïdor (PK composta)
+     * @return true si s'ha eliminat correctament
+     */
+    boolean eliminar(String cmCodi, String pvCodi);
 
-	public boolean eliminar();
+    /**
+     * Busca una relació específica per PK composta
+     * 
+     * @param cmCodi Codi del component
+     * @param pvCodi Codi del proveïdor
+     * @return Relació trobada o null si no existeix
+     */
+    ProvComp findById(String cmCodi, String pvCodi);
 
-	public boolean eliminarProveidorDeComponent();
+    /**
+     * Llista totes les relacions proveïdor-component
+     * 
+     * @return Llista de totes les relacions
+     */
+    List<ProvComp> findAll();
 
-	public List findAll();
+    /**
+     * Obté tots els proveïdors d'un component concret
+     * Utilitzat pel dropdown "PROVEÏDOR" del formulari editComponent.jsp
+     * 
+     * @param cmCodi Codi del component
+     * @return Llista de relacions (proveïdors) d'aquest component
+     */
+    List<ProvComp> getProveidorsDelComponent(String cmCodi);
 
-	public Object findById();
-
-	public List getProveidorsDelComponent();
-
-	public boolean insertar();
-
+    /**
+     * Obté tots els components subministrats per un proveïdor
+     * 
+     * @param pvCodi Codi del proveïdor
+     * @return Llista de relacions (components) d'aquest proveïdor
+     */
+    List<ProvComp> getComponentsDelProveidor(String pvCodi);
 }

@@ -1,72 +1,159 @@
 package abstractdao;
 
-import dao.IDAOProvComp;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
+import dao.IDAOProvComp;
+import model.ProvComp;
+import util.ConnexioOracle;
+
 /**
- * @author domen
+ * Classe abstracta per DAOProvComp amb mètodes utils comuns
+ * Implementa funcions auxiliars per gestió de recursos i errors
+ * 
+ * @author DomenechObiolAlbert
  * @version 1.0
- * @created 24-oct.-2025 10:37:37
  */
 public abstract class AbstractDAOProvComp implements IDAOProvComp {
 
-	public AbstractDAOProvComp(){
+    // ============================================
+    // MÈTODES UTILS (comuns a totes les implementacions)
+    // ============================================
 
-	}
+    /**
+     * Obté connexió a la base de dades Oracle
+     * @return Connexió activa o null si error
+     */
+    protected Connection getConnection() {
+        try {
+            return ConnexioOracle.getConnection();
+        } catch (SQLException e) {
+            logError(e);
+            return null;
+        }
+    }
 
-	public void finalize() throws Throwable {
+    /**
+     * Tanca un ResultSet de forma segura
+     * @param rs ResultSet a tancar
+     */
+    protected void tancarRecursos(ResultSet rs) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                logError(e);
+            }
+        }
+    }
 
-	}
-	public Connection getConnection(){
-		return null;
-	}
+    /**
+     * Tanca un PreparedStatement de forma segura
+     * @param ps PreparedStatement a tancar
+     */
+    protected void tancarRecursos(PreparedStatement ps) {
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                logError(e);
+            }
+        }
+    }
 
-	public void logError(){
+    /**
+     * Tanca una Connection de forma segura
+     * @param conn Connection a tancar
+     */
+    protected void tancarRecursos(Connection conn) {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                logError(e);
+            }
+        }
+    }
 
-	}
+    /**
+     * Registra errors al sistema
+     * @param e Excepció a registrar
+     */
+    protected void logError(SQLException e) {
+        System.err.println(" ERROR SQL: " + e.getMessage());
+        System.err.println("   Codi error: " + e.getErrorCode());
+        System.err.println("   SQLState: " + e.getSQLState());
+        e.printStackTrace();
+    }
 
-	public void tancarRecursos(){
+    /**
+     * Valida que una entitat ProvComp té dades vàlides
+     * @param pc Entitat a validar
+     * @return true si és vàlida
+     */
+    protected boolean validarEntitat(ProvComp pc) {
+        if (pc == null) {
+            System.err.println("ProvComp null!");
+            return false;
+        }
+        
+        if (pc.getPcCmCodi() == null || pc.getPcCmCodi().trim().isEmpty()) {
+            System.err.println("Codi component buit!");
+            return false;
+        }
+        
+        if (pc.getPcPvCodi() == null || pc.getPcPvCodi().trim().isEmpty()) {
+            System.err.println("Codi proveïdor buit!");
+            return false;
+        }
+        
+        if (pc.getPcPreu() == null || pc.getPcPreu() < 0) {
+            System.err.println("Preu invàlid!");
+            return false;
+        }
+        
+        return true;
+    }
 
-	}
+    /**
+     * Helper per mapejar ResultSet → ProvComp
+     * @param rs ResultSet amb dades
+     * @return Objecte ProvComp
+     * @throws SQLException si error en lectura
+     */
+    protected ProvComp mapResultSetToProvComp(ResultSet rs) throws SQLException {
+        ProvComp pc = new ProvComp();
+        pc.setPcCmCodi(rs.getString("pc_cm_codi"));
+        pc.setPcPvCodi(rs.getString("pc_pv_codi"));
+        pc.setPcPreu(rs.getDouble("pc_preu"));
+        return pc;
+    }
 
-	public boolean validarEntitat(){
-		return false;
-	}
+    // ============================================
+    // MÈTODES ABSTRACTES (per implementar a subclasses)
+    // ============================================
 
-	public boolean actualitzar(){
-		return false;
-	}
+    @Override
+    public abstract boolean insertar(ProvComp pc);
 
-	public boolean actualitzarPreuProveidor(){
-		return false;
-	}
+    @Override
+    public abstract boolean actualitzar(ProvComp pc);
 
-	public boolean afegirProveidorAComponent(){
-		return false;
-	}
+    @Override
+    public abstract boolean eliminar(String cmCodi, String pvCodi);
 
-	public boolean eliminar(){
-		return false;
-	}
+    @Override
+    public abstract ProvComp findById(String cmCodi, String pvCodi);
 
-	public boolean eliminarProveidorDeComponent(){
-		return false;
-	}
+    @Override
+    public abstract List<ProvComp> findAll();
 
-	public List findAll(){
-		return null;
-	}
+    @Override
+    public abstract List<ProvComp> getProveidorsDelComponent(String cmCodi);
 
-	public Object findById(){
-		return null;
-	}
-
-	public List getProveidorsDelComponent(){
-		return null;
-	}
-
-	public boolean insertar(){
-		return false;
-	}
-}//end AbstractDAOProvComp
+    @Override
+    public abstract List<ProvComp> getComponentsDelProveidor(String pvCodi);
+}
