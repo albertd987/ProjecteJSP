@@ -46,7 +46,7 @@ public class DAOProveidor extends AbstractDAOProveidor {
                 proveidors.add(p);
             }
             
-            System.out.println("✅ findAll() - Trobats " + proveidors.size() + " proveïdors");
+            System.out.println("findAll() - Trobats " + proveidors.size() + " proveïdors");
             
         } catch (SQLException e) {
             logError(e);
@@ -87,10 +87,10 @@ public class DAOProveidor extends AbstractDAOProveidor {
             
             if (rs.next()) {
                 Proveidor p = mapResultSetToProveidor(rs);
-                System.out.println("✅ findById(" + codi + ") - Trobat: " + p.getPvRaoSocial());
+                System.out.println("findById(" + codi + ") - Trobat: " + p.getPvRaoSocial());
                 return p;
             } else {
-                System.out.println("⚠️  findById(" + codi + ") - No trobat");
+                System.out.println("findById(" + codi + ") - No trobat");
                 return null;
             }
             
