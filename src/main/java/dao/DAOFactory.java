@@ -72,8 +72,7 @@ public class DAOFactory {
      * @throws UnsupportedOperationException si encara no està implementat
      */
     public static IDAOItem getDAOItem() {
-        // TODO: Implementar DAOItem
-        throw new UnsupportedOperationException("DAOItem encara no implementat");
+        return new DAOItem();
     }
     
     /**
