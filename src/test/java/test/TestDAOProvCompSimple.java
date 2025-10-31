@@ -11,16 +11,18 @@ import model.ProvComp;
 
 /**
  * Test AUTÒNOM i SIMPLIFICAT per DAOProvComp
+ * ✅ CORREGIT: Usa dades REALS de DadesDemo_DomenechObiolAlbert.sql
+ * 
  * No depèn de DAOComponent - pot executar-se independentment
  * 
  * @author DomenechObiolAlbert
- * @version 1.0
+ * @version 2.0 - Corregit amb dades reals
  */
 public class TestDAOProvCompSimple {
 
     public static void main(String[] args) {
         System.out.println("═".repeat(70));
-        System.out.println("🧪 TEST AUTÒNOM: DAOProvComp");
+        System.out.println("🧪 TEST AUTÒNOM: DAOProvComp (VERSIÓ CORREGIDA)");
         System.out.println("═".repeat(70));
 
         // Crear DAO
@@ -127,17 +129,12 @@ public class TestDAOProvCompSimple {
         System.out.println("─".repeat(70));
 
         try {
-            // Buscar un component que tingui proveïdors
-            String cmCodi = trobarComponentAmbProveidors();
+            // Usar C001 (Processador) que té 3 proveïdors: PV001(350), PV002(345), PV006(355)
+            String cmCodi = "C001";
             
-            if (cmCodi == null) {
-                System.out.println("⚠️  No hi ha components amb proveïdors per testejar");
-                return true; // No és error, simplement BD buida
-            }
-
             List<ProvComp> proveidors = dao.getProveidorsDelComponent(cmCodi);
 
-            System.out.println("📦 Component " + cmCodi + " té " + 
+            System.out.println("📦 Component " + cmCodi + " (Processador Intel i7) té " + 
                              proveidors.size() + " proveïdors:");
 
             for (ProvComp pc : proveidors) {
@@ -153,6 +150,15 @@ public class TestDAOProvCompSimple {
                 System.out.println("\n💰 Preu mitjà calculat manualment: " + 
                                  String.format("%.2f", mitjana) + "€");
                 System.out.println("   (Hauria de coincidir amb cm_preu_mig!)");
+                
+                // Validar que té els 3 proveïdors esperats
+                if (proveidors.size() == 3) {
+                    System.out.println("✅ Nombre de proveïdors correcte (3)");
+                    return true;
+                } else {
+                    System.err.println("❌ S'esperaven 3 proveïdors, trobats: " + proveidors.size());
+                    return false;
+                }
             }
             
             return true;
@@ -174,16 +180,9 @@ public class TestDAOProvCompSimple {
         System.out.println("─".repeat(70));
 
         try {
-            // Buscar primera relació existent
-            String[] pk = trobarPrimeraRelacio();
-            
-            if (pk == null) {
-                System.out.println("⚠️  No hi ha relacions per testejar findById()");
-                return true;
-            }
-
-            String cmCodi = pk[0];
-            String pvCodi = pk[1];
+            // Usar una relació real: C001 + PV001 (Processador amb preu 350.00)
+            String cmCodi = "C001";
+            String pvCodi = "PV001";
 
             System.out.println("🔍 Buscant: Component=" + cmCodi + ", Proveïdor=" + pvCodi);
 
@@ -194,7 +193,15 @@ public class TestDAOProvCompSimple {
                 System.out.println("   Component: " + pc.getPcCmCodi());
                 System.out.println("   Proveïdor: " + pc.getPcPvCodi());
                 System.out.println("   Preu: " + pc.getPcPreu() + "€");
-                return true;
+                
+                // Validar que el preu és el correcte (350.00)
+                if (Math.abs(pc.getPcPreu() - 350.00) < 0.01) {
+                    System.out.println("✅ Preu correcte (350.00€)");
+                    return true;
+                } else {
+                    System.err.println("❌ Preu incorrecte! Esperat: 350.00, Trobat: " + pc.getPcPreu());
+                    return false;
+                }
             } else {
                 System.err.println("❌ No s'ha trobat la relació (hauria d'existir!)");
                 return false;
@@ -217,29 +224,27 @@ public class TestDAOProvCompSimple {
         System.out.println("─".repeat(70));
 
         try {
-            String pvCodi = trobarProveidorAmbComponents();
+            // Usar PV001 (Components Electrònics SA) que subministra C001, C002, C003
+            String pvCodi = "PV001";
             
-            if (pvCodi == null) {
-                System.out.println("⚠️  No hi ha proveïdors per testejar");
-                return true;
-            }
-
             List<ProvComp> components = dao.getComponentsDelProveidor(pvCodi);
 
-            System.out.println("🏭 Proveïdor " + pvCodi + " subministra " + 
+            System.out.println("🏭 Proveïdor " + pvCodi + " (Components Electrònics SA) subministra " + 
                              components.size() + " components:");
 
-            int count = 0;
             for (ProvComp pc : components) {
-                if (count++ >= 5) break;
                 System.out.println("   • Component " + pc.getPcCmCodi() + 
                                  " = " + pc.getPcPreu() + "€");
             }
-            if (components.size() > 5) {
-                System.out.println("   ... i " + (components.size() - 5) + " més");
-            }
             
-            return true;
+            // Validar que té els 3 components esperats: C001, C002, C003
+            if (components.size() == 3) {
+                System.out.println("✅ Nombre de components correcte (3)");
+                return true;
+            } else {
+                System.err.println("❌ S'esperaven 3 components, trobats: " + components.size());
+                return false;
+            }
 
         } catch (Exception e) {
             System.err.println("❌ ERROR en getComponentsDelProveidor():");
@@ -331,67 +336,97 @@ public class TestDAOProvCompSimple {
         System.out.println("─".repeat(70));
 
         try {
-            // Trobar un component i proveïdor de test
-            String cmCodi = trobarComponentAmbProveidors();
-            String pvCodiTest = "PVTEST";
+            // ✅ CORRECCIÓ: Usar component i proveïdor REALS de la BD
+            // Component: C007 (Teclat mecànic) que ja té PV004, PV005, PV008
+            // Proveïdor: PV001 (Components Electrònics SA) que NO té C007
+            String cmCodi = "C007";
+            String pvCodiTest = "PV001";
             
-            if (cmCodi == null) {
-                System.out.println("⚠️  No hi ha components per testejar CRUD");
-                return true;
+            System.out.println("📝 Usarem component: " + cmCodi + " (Teclat mecànic RGB)");
+            System.out.println("📝 Proveïdor de test: " + pvCodiTest + " (Components Electrònics SA)");
+            System.out.println("   (Aquest proveïdor EXISTEIX i NO té aquest component)");
+
+            // 1️⃣ Validar que la relació NO existeix abans
+            ProvComp existe = dao.findById(cmCodi, pvCodiTest);
+            if (existe != null) {
+                System.out.println("⚠️  La relació ja existeix! Eliminant-la primer...");
+                dao.eliminar(cmCodi, pvCodiTest);
             }
 
-            System.out.println("📝 Usarem component: " + cmCodi);
-            System.out.println("📝 Proveïdor de test: " + pvCodiTest);
-
-            // 1️⃣ Obtenir preu mitjà ABANS
+            // 2️⃣ Obtenir preu mitjà ABANS
             double preuANTES = obtenirPreuMig(cmCodi);
             System.out.println("\n💰 Preu mitjà ABANS: " + preuANTES + "€");
+            
+            // Obtenir el nombre de proveïdors actual
+            int numProvANTES = contarProveidors(cmCodi);
+            System.out.println("👥 Nombre de proveïdors ABANS: " + numProvANTES);
 
-            // 2️⃣ INSERT temporal
+            // 3️⃣ INSERT temporal
             System.out.println("\n🔨 TEST INSERT...");
             ProvComp nova = new ProvComp(cmCodi, pvCodiTest, 999.99);
             boolean insertOk = dao.insertar(nova);
             
             if (!insertOk) {
-                System.out.println("⚠️  INSERT ha fallat (pot ser FK, saltant resta del test)");
-                return true;
+                System.err.println("❌ INSERT ha fallat!");
+                return false;
             }
             
             System.out.println("✅ INSERT OK");
 
-            // 3️⃣ Validar que el preu ha canviat
+            // 4️⃣ Validar que el preu ha canviat
             double preuDESPRES_INSERT = obtenirPreuMig(cmCodi);
+            int numProvDESPRES_INSERT = contarProveidors(cmCodi);
             System.out.println("💰 Preu mitjà DESPRÉS INSERT: " + preuDESPRES_INSERT + "€");
+            System.out.println("👥 Nombre de proveïdors DESPRÉS INSERT: " + numProvDESPRES_INSERT);
             
-            if (Math.abs(preuANTES - preuDESPRES_INSERT) > 0.01) {
+            if (Math.abs(preuANTES - preuDESPRES_INSERT) > 0.01 && numProvDESPRES_INSERT == numProvANTES + 1) {
                 System.out.println("✅✅✅ TRIGGER INSERT FUNCIONA!");
             } else {
-                System.out.println("⚠️  El preu no ha canviat (coincidència?)");
+                System.out.println("⚠️  El preu no ha canviat com s'esperava");
             }
 
-            // 4️⃣ UPDATE preu
+            // 5️⃣ UPDATE preu
             System.out.println("\n🔨 TEST UPDATE...");
             nova.setPcPreu(1500.00);
             boolean updateOk = dao.actualitzar(nova);
-            System.out.println(updateOk ? "✅ UPDATE OK" : "❌ UPDATE FALLIT");
+            
+            if (!updateOk) {
+                System.err.println("❌ UPDATE ha fallat!");
+                dao.eliminar(cmCodi, pvCodiTest); // Cleanup
+                return false;
+            }
+            
+            System.out.println("✅ UPDATE OK");
 
             double preuDESPRES_UPDATE = obtenirPreuMig(cmCodi);
             System.out.println("💰 Preu mitjà DESPRÉS UPDATE: " + preuDESPRES_UPDATE + "€");
             
             if (Math.abs(preuDESPRES_INSERT - preuDESPRES_UPDATE) > 0.01) {
                 System.out.println("✅✅✅ TRIGGER UPDATE FUNCIONA!");
+            } else {
+                System.out.println("⚠️  El preu no ha canviat (pot ser coincidència)");
             }
 
-            // 5️⃣ DELETE temporal
+            // 6️⃣ DELETE temporal
             System.out.println("\n🔨 TEST DELETE...");
             boolean deleteOk = dao.eliminar(cmCodi, pvCodiTest);
-            System.out.println(deleteOk ? "✅ DELETE OK" : "❌ DELETE FALLIT");
+            
+            if (!deleteOk) {
+                System.err.println("❌ DELETE ha fallat!");
+                return false;
+            }
+            
+            System.out.println("✅ DELETE OK");
 
             double preuDESPRES_DELETE = obtenirPreuMig(cmCodi);
+            int numProvDESPRES_DELETE = contarProveidors(cmCodi);
             System.out.println("💰 Preu mitjà DESPRÉS DELETE: " + preuDESPRES_DELETE + "€");
+            System.out.println("👥 Nombre de proveïdors DESPRÉS DELETE: " + numProvDESPRES_DELETE);
             
-            if (Math.abs(preuANTES - preuDESPRES_DELETE) < 0.01) {
-                System.out.println("✅✅✅ TRIGGER DELETE FUNCIONA! (preu restaurat)");
+            if (Math.abs(preuANTES - preuDESPRES_DELETE) < 0.01 && numProvDESPRES_DELETE == numProvANTES) {
+                System.out.println("✅✅✅ TRIGGER DELETE FUNCIONA! (preu i nombre restaurats)");
+            } else {
+                System.out.println("⚠️  El preu o nombre de proveïdors no ha tornat a l'estat inicial");
             }
 
             System.out.println("\n🎉 Test CRUD completat!");
@@ -408,60 +443,6 @@ public class TestDAOProvCompSimple {
     // MÈTODES AUXILIARS
     // ============================================
 
-    private static String trobarComponentAmbProveidors() {
-        try {
-            Connection conn = util.ConnexioOracle.getConnection();
-            PreparedStatement ps = conn.prepareStatement(
-                "SELECT DISTINCT pc_cm_codi FROM Prov_Comp WHERE ROWNUM = 1"
-            );
-            ResultSet rs = ps.executeQuery();
-            String codi = rs.next() ? rs.getString(1) : null;
-            rs.close();
-            ps.close();
-            conn.close();
-            return codi;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    private static String trobarProveidorAmbComponents() {
-        try {
-            Connection conn = util.ConnexioOracle.getConnection();
-            PreparedStatement ps = conn.prepareStatement(
-                "SELECT DISTINCT pc_pv_codi FROM Prov_Comp WHERE ROWNUM = 1"
-            );
-            ResultSet rs = ps.executeQuery();
-            String codi = rs.next() ? rs.getString(1) : null;
-            rs.close();
-            ps.close();
-            conn.close();
-            return codi;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    private static String[] trobarPrimeraRelacio() {
-        try {
-            Connection conn = util.ConnexioOracle.getConnection();
-            PreparedStatement ps = conn.prepareStatement(
-                "SELECT pc_cm_codi, pc_pv_codi FROM Prov_Comp WHERE ROWNUM = 1"
-            );
-            ResultSet rs = ps.executeQuery();
-            String[] pk = null;
-            if (rs.next()) {
-                pk = new String[] { rs.getString(1), rs.getString(2) };
-            }
-            rs.close();
-            ps.close();
-            conn.close();
-            return pk;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     private static double obtenirPreuMig(String cmCodi) {
         try {
             Connection conn = util.ConnexioOracle.getConnection();
@@ -477,6 +458,24 @@ public class TestDAOProvCompSimple {
             return preu;
         } catch (Exception e) {
             return 0.0;
+        }
+    }
+
+    private static int contarProveidors(String cmCodi) {
+        try {
+            Connection conn = util.ConnexioOracle.getConnection();
+            PreparedStatement ps = conn.prepareStatement(
+                "SELECT COUNT(*) FROM Prov_Comp WHERE pc_cm_codi = ?"
+            );
+            ps.setString(1, cmCodi);
+            ResultSet rs = ps.executeQuery();
+            int count = rs.next() ? rs.getInt(1) : 0;
+            rs.close();
+            ps.close();
+            conn.close();
+            return count;
+        } catch (Exception e) {
+            return 0;
         }
     }
 }
