@@ -104,7 +104,7 @@ public class DAOFactory {
      */
     public static IDAOProdItem getDAOProdItem() {
         // TODO: Implementar DAOProdItem
-        throw new UnsupportedOperationException("DAOProdItem encara no implementat");
+        return new DAOProdItem();
     }
     /**
  * Obté una instància de DAOProvComp

@@ -1,4 +1,4 @@
-package util;
+package test;
 
 
 import java.sql.Connection;
@@ -14,6 +14,7 @@ import model.Producte;
 import model.ProvComp;
 import model.Provincia;
 import model.UnitatMesura;
+import util.ConnexioOracle;
 /**
  * Tests simples per validar models contra Oracle Database
  * Tests directes amb JDBC sense capa DAO
