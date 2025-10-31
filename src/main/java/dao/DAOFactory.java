@@ -81,8 +81,7 @@ public class DAOFactory {
      * @throws UnsupportedOperationException si encara no està implementat
      */
     public static IDAOProducte getDAOProducte() {
-        // TODO: Implementar DAOProducte
-        throw new UnsupportedOperationException("DAOProducte encara no implementat");
+        return new DAOProducte();
     }
     
     /**
