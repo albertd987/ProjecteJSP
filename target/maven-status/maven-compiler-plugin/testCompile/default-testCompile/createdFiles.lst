@@ -1,2 +1,8 @@
-test\ConnexioOracle.class
+test\TestDAOProdItem.class
+test\TestDAOItem.class
+test\TestDAOComponent.class
+test\TestDAOProducte.class
+test\TestDAOFactory.class
+test\TestDAOProvCompSimple.class
+test\TestDAOsReadOnly.class
 test\TestModels.class

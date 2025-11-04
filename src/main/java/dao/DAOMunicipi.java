@@ -46,7 +46,7 @@ public class DAOMunicipi extends AbstractDAOMunicipi {
                 municipis.add(m);
             }
             
-            System.out.println("✅ findAll() - Trobats " + municipis.size() + " municipis");
+            System.out.println("findAll() - Trobats " + municipis.size() + " municipis");
             
         } catch (SQLException e) {
             logError(e);
@@ -67,7 +67,7 @@ public class DAOMunicipi extends AbstractDAOMunicipi {
     public Municipi findById(String prCodi, String muNum) {
         if (prCodi == null || prCodi.trim().isEmpty() || 
             muNum == null || muNum.trim().isEmpty()) {
-            System.err.println("❌ Codi província i número municipi obligatoris");
+            System.err.println("Codi província i número municipi obligatoris");
             return null;
         }
         
@@ -88,10 +88,10 @@ public class DAOMunicipi extends AbstractDAOMunicipi {
             
             if (rs.next()) {
                 Municipi m = mapResultSetToMunicipi(rs);
-                System.out.println("✅ findById(" + prCodi + "," + muNum + ") - Trobat: " + m.getMuNom());
+                System.out.println("findById(" + prCodi + "," + muNum + ") - Trobat: " + m.getMuNom());
                 return m;
             } else {
-                System.out.println("⚠️  findById(" + prCodi + "," + muNum + ") - No trobat");
+                System.out.println("findById(" + prCodi + "," + muNum + ") - No trobat");
                 return null;
             }
             
@@ -114,7 +114,7 @@ public class DAOMunicipi extends AbstractDAOMunicipi {
         List<Municipi> municipis = new ArrayList<>();
         
         if (prCodi == null || prCodi.trim().isEmpty()) {
-            System.err.println("❌ Codi província no pot ser buit");
+            System.err.println("Codi província no pot ser buit");
             return municipis;
         }
         
@@ -138,7 +138,7 @@ public class DAOMunicipi extends AbstractDAOMunicipi {
                 municipis.add(m);
             }
             
-            System.out.println("✅ getMunicipisDeProvincia(" + prCodi + ") - Trobats " + municipis.size() + " municipis");
+            System.out.println("getMunicipisDeProvincia(" + prCodi + ") - Trobats " + municipis.size() + " municipis");
             
         } catch (SQLException e) {
             logError(e);

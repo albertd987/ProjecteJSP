@@ -7,22 +7,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+                                        
 import abstractdao.AbstractDAOComponent;
-import model.Component;
-
-/**
+import model.Component;                 
+    
+/** 
  * Implementació DAO per a Component
  * Gestiona operacions CRUD sobre les taules Item i Component
- * 
+ *  
  * IMPORTANT: cm_preu_mig és calculat automàticament pels triggers Oracle
  * quan s'insereixen/actualitzen/eliminen preus a la taula Prov_Comp
- * 
+ *  
  * @author DomenechObiolAlbert
  * @version 1.0
- */
+ */ 
 public class DAOComponent extends AbstractDAOComponent {
-
+    
     // ============================================
     // INSERTAR - Crea un component nou
     // ============================================

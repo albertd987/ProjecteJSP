@@ -39,7 +39,7 @@ public abstract class AbstractDAOItem implements IDAOItem {
             try {
                 conn.close();
             } catch (SQLException e) {
-                System.err.println("⚠️  Error tancant connexió: " + e.getMessage());
+                System.err.println("Error tancant connexió: " + e.getMessage());
             }
         }
     }
@@ -53,7 +53,7 @@ public abstract class AbstractDAOItem implements IDAOItem {
             try {
                 stmt.close();
             } catch (SQLException e) {
-                System.err.println("⚠️  Error tancant statement: " + e.getMessage());
+                System.err.println("Error tancant statement: " + e.getMessage());
             }
         }
     }
@@ -67,7 +67,7 @@ public abstract class AbstractDAOItem implements IDAOItem {
             try {
                 rs.close();
             } catch (SQLException e) {
-                System.err.println("⚠️  Error tancant resultset: " + e.getMessage());
+                System.err.println(" Error tancant resultset: " + e.getMessage());
             }
         }
     }
@@ -77,10 +77,10 @@ public abstract class AbstractDAOItem implements IDAOItem {
      * @param e Excepció SQL a registrar
      */
     protected void logError(SQLException e) {
-        System.err.println("❌ Error SQL en DAOItem:");
-        System.err.println("   Missatge: " + e.getMessage());
-        System.err.println("   Codi error: " + e.getErrorCode());
-        System.err.println("   SQL State: " + e.getSQLState());
+        System.err.println("Error SQL en DAOItem:");
+        System.err.println(" Missatge: " + e.getMessage());
+        System.err.println("Codi error: " + e.getErrorCode());
+        System.err.println("SQL State: " + e.getSQLState());
         e.printStackTrace();
     }
 
@@ -91,23 +91,23 @@ public abstract class AbstractDAOItem implements IDAOItem {
      */
     protected boolean validarEntitat(Item item) {
         if (item == null) {
-            System.err.println("❌ Item no pot ser null");
+            System.err.println(" Item no pot ser null");
             return false;
         }
         if (item.getItCodi() == null || item.getItCodi().trim().isEmpty()) {
-            System.err.println("❌ Item: Codi no pot ser buit");
+            System.err.println("Item: Codi no pot ser buit");
             return false;
         }
         if (item.getItTipus() == null || item.getItTipus().trim().isEmpty()) {
-            System.err.println("❌ Item: Tipus no pot ser buit");
+            System.err.println("Item: Tipus no pot ser buit");
             return false;
         }
         if (!item.getItTipus().equals("C") && !item.getItTipus().equals("P")) {
-            System.err.println("❌ Item: Tipus ha de ser 'C' (Component) o 'P' (Producte)");
+            System.err.println("Item: Tipus ha de ser 'C' (Component) o 'P' (Producte)");
             return false;
         }
         if (item.getItNom() == null || item.getItNom().trim().isEmpty()) {
-            System.err.println("❌ Item: Nom no pot ser buit");
+            System.err.println("Item: Nom no pot ser buit");
             return false;
         }
         return true;

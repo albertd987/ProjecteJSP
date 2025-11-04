@@ -43,7 +43,7 @@ public class DAOProvincia extends AbstractDAOProvincia {
                 provincies.add(p);
             }
             
-            System.out.println("✅ findAll() - Trobades " + provincies.size() + " províncies");
+            System.out.println("findAll() - Trobades " + provincies.size() + " províncies");
             
         } catch (SQLException e) {
             logError(e);
@@ -63,7 +63,7 @@ public class DAOProvincia extends AbstractDAOProvincia {
     @Override
     public Provincia findById(String codi) {
         if (codi == null || codi.trim().isEmpty()) {
-            System.err.println("❌ Codi província no pot ser buit");
+            System.err.println("Codi província no pot ser buit");
             return null;
         }
         
@@ -81,10 +81,10 @@ public class DAOProvincia extends AbstractDAOProvincia {
             
             if (rs.next()) {
                 Provincia p = mapResultSetToProvincia(rs);
-                System.out.println("✅ findById(" + codi + ") - Trobat: " + p.getPrNom());
+                System.out.println("findById(" + codi + ") - Trobat: " + p.getPrNom());
                 return p;
             } else {
-                System.out.println("⚠️  findById(" + codi + ") - No trobat");
+                System.out.println("findById(" + codi + ") - No trobat");
                 return null;
             }
             

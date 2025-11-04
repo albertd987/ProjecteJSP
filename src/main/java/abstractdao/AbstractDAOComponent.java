@@ -40,7 +40,7 @@ public abstract class AbstractDAOComponent implements IDAOComponent {
             try {
                 conn.close();
             } catch (SQLException e) {
-                System.err.println("⚠️  Error tancant connexió: " + e.getMessage());
+                System.err.println(" Error tancant connexió: " + e.getMessage());
             }
         }
     }
@@ -54,7 +54,7 @@ public abstract class AbstractDAOComponent implements IDAOComponent {
             try {
                 stmt.close();
             } catch (SQLException e) {
-                System.err.println("⚠️  Error tancant statement: " + e.getMessage());
+                System.err.println(" Error tancant statement: " + e.getMessage());
             }
         }
     }
@@ -68,7 +68,7 @@ public abstract class AbstractDAOComponent implements IDAOComponent {
             try {
                 rs.close();
             } catch (SQLException e) {
-                System.err.println("⚠️  Error tancant resultset: " + e.getMessage());
+                System.err.println(" Error tancant resultset: " + e.getMessage());
             }
         }
     }
@@ -78,10 +78,10 @@ public abstract class AbstractDAOComponent implements IDAOComponent {
      * @param e Excepció SQL a registrar
      */
     protected void logError(SQLException e) {
-        System.err.println("❌ Error SQL en DAOComponent:");
-        System.err.println("   Missatge: " + e.getMessage());
-        System.err.println("   Codi error: " + e.getErrorCode());
-        System.err.println("   SQL State: " + e.getSQLState());
+        System.err.println("Error SQL en DAOComponent:");
+        System.err.println("Missatge: " + e.getMessage());
+        System.err.println("Codi error: " + e.getErrorCode());
+        System.err.println("SQL State: " + e.getSQLState());
         e.printStackTrace();
     }
 
@@ -92,19 +92,19 @@ public abstract class AbstractDAOComponent implements IDAOComponent {
      */
     protected boolean validarEntitat(Component c) {
         if (c == null) {
-            System.err.println("❌ Component no pot ser null");
+            System.err.println("Component no pot ser null");
             return false;
         }
         if (c.getCmCodi() == null || c.getCmCodi().trim().isEmpty()) {
-            System.err.println("❌ Codi component obligatori");
+            System.err.println("Codi component obligatori");
             return false;
         }
         if (c.getCmUmCodi() == null || c.getCmUmCodi().trim().isEmpty()) {
-            System.err.println("❌ Unitat mesura obligatòria");
+            System.err.println("Unitat mesura obligatòria");
             return false;
         }
         if (c.getCmCodiFabricant() == null || c.getCmCodiFabricant().trim().isEmpty()) {
-            System.err.println("❌ Codi fabricant obligatori");
+            System.err.println("Codi fabricant obligatori");
             return false;
         }
         return true;

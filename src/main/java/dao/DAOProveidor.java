@@ -114,7 +114,7 @@ public class DAOProveidor extends AbstractDAOProveidor {
         
         if (prCodi == null || prCodi.trim().isEmpty() || 
             muNum == null || muNum.trim().isEmpty()) {
-            System.err.println("❌ Codi província i número municipi obligatoris");
+            System.err.println("Codi província i número municipi obligatoris");
             return proveidors;
         }
         
@@ -140,7 +140,7 @@ public class DAOProveidor extends AbstractDAOProveidor {
                 proveidors.add(p);
             }
             
-            System.out.println("✅ filtrarPerMunicipi(" + prCodi + "," + muNum + ") - Trobats " + proveidors.size());
+            System.out.println("filtrarPerMunicipi(" + prCodi + "," + muNum + ") - Trobats " + proveidors.size());
             
         } catch (SQLException e) {
             logError(e);
@@ -162,7 +162,7 @@ public class DAOProveidor extends AbstractDAOProveidor {
         List<Proveidor> proveidors = new ArrayList<>();
         
         if (nomPattern == null || nomPattern.trim().isEmpty()) {
-            System.err.println("❌ Patró de cerca no pot ser buit");
+            System.err.println("Patró de cerca no pot ser buit");
             return proveidors;
         }
         
@@ -187,7 +187,7 @@ public class DAOProveidor extends AbstractDAOProveidor {
                 proveidors.add(p);
             }
             
-            System.out.println("✅ filtrarPerNom('" + nomPattern + "') - Trobats " + proveidors.size());
+            System.out.println("filtrarPerNom('" + nomPattern + "') - Trobats " + proveidors.size());
             
         } catch (SQLException e) {
             logError(e);

@@ -18,7 +18,7 @@ public interface IDAOProvComp {
 
     /**
      * Insereix una nova relació proveïdor-component
-     * ⚠️ DISPARA TRIGGER que recalcula cm_preu_mig
+     * DISPARA TRIGGER que recalcula cm_preu_mig
      * 
      * @param pc Relació proveïdor-component a inserir
      * @return true si s'ha inserit correctament
@@ -27,7 +27,7 @@ public interface IDAOProvComp {
 
     /**
      * Actualitza el preu d'una relació existent
-     * ⚠️ DISPARA TRIGGER que recalcula cm_preu_mig
+     * DISPARA TRIGGER que recalcula cm_preu_mig
      * 
      * @param pc Relació amb dades actualitzades
      * @return true si s'ha actualitzat correctament
@@ -36,7 +36,7 @@ public interface IDAOProvComp {
 
     /**
      * Elimina una relació proveïdor-component
-     * ⚠️ DISPARA TRIGGER que recalcula cm_preu_mig
+     * DISPARA TRIGGER que recalcula cm_preu_mig
      * 
      * @param cmCodi Codi del component (PK composta)
      * @param pvCodi Codi del proveïdor (PK composta)

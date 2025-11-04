@@ -93,7 +93,6 @@ public class DAOFactory {
      * @throws UnsupportedOperationException si encara no està implementat
      */
     public static IDAOProvComp getDAOProvComp() {
-        // TODO: Implementar DAOProvComp (CRÍTICA - triggers!)
         return new DAOProvComp();
     }
     
@@ -103,31 +102,18 @@ public class DAOFactory {
      * @throws UnsupportedOperationException si encara no està implementat
      */
     public static IDAOProdItem getDAOProdItem() {
-        // TODO: Implementar DAOProdItem
         return new DAOProdItem();
     }
     /**
  * Obté una instància de DAOProvComp
  * 
- * ⚠️ CRÍTICA: Aquesta classe interactua amb triggers Oracle!
+ * CRÍTICA: Aquesta classe interactua amb triggers Oracle!
  * Cada INSERT/UPDATE/DELETE en Prov_Comp dispara el trigger
  * trg_prov_comp_after que recalcula automàticament cm_preu_mig
  * 
  * @return Implementació concreta d'IDAOProvComp
  */
 
-
-
-
-
-
-
-
-
-    // ============================================
-    // Mètodes Utility
-    // ============================================
-    
     /**
      * Tanca tots els recursos d'un DAO si és necessari
      * (per a futures implementacions amb connection pooling)

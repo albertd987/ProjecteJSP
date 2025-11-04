@@ -58,7 +58,7 @@ public class DAOProducte extends AbstractDAOProducte {
             conn = getConnection();
             conn.setAutoCommit(false); // Iniciar transacció
 
-            // 1️⃣ INSERT a Item (taula pare)
+            // 1️INSERT a Item (taula pare)
             String sqlItem = """
                 INSERT INTO Item (it_codi, it_tipus, it_nom, it_desc, it_stock, it_foto)
                 VALUES (?, ?, ?, ?, ?, ?)
@@ -74,7 +74,7 @@ public class DAOProducte extends AbstractDAOProducte {
 
             int rowsItem = psItem.executeUpdate();
 
-            // 2️⃣ INSERT a Producte (taula filla)
+            // 2️INSERT a Producte (taula filla)
             String sqlProducte = """
                 INSERT INTO Producte (pr_codi)
                 VALUES (?)
@@ -85,7 +85,7 @@ public class DAOProducte extends AbstractDAOProducte {
 
             int rowsProducte = psProducte.executeUpdate();
 
-            // ✅ Commit si ambdós INSERTs van bé
+            // Commit si ambdós INSERTs van bé
             if (rowsItem > 0 && rowsProducte > 0) {
                 conn.commit();
                 logInfo("Producte inserit correctament: " + producte.getPrCodi());
@@ -183,19 +183,19 @@ public class DAOProducte extends AbstractDAOProducte {
             conn = getConnection();
             conn.setAutoCommit(false); // Iniciar transacció
 
-            // 1️⃣ DELETE de Producte (taula filla)
+            //1️DELETE de Producte (taula filla)
             String sqlProducte = "DELETE FROM Producte WHERE pr_codi = ?";
             psProducte = conn.prepareStatement(sqlProducte);
             psProducte.setString(1, prCodi);
             int rowsProducte = psProducte.executeUpdate();
 
-            // 2️⃣ DELETE d'Item (taula pare)
+            // 2️ DELETE d'Item (taula pare)
             String sqlItem = "DELETE FROM Item WHERE it_codi = ? AND it_tipus = 'P'";
             psItem = conn.prepareStatement(sqlItem);
             psItem.setString(1, prCodi);
             int rowsItem = psItem.executeUpdate();
 
-            // ✅ Commit si ambdós DELETEs van bé
+            //Commit si ambdós DELETEs van bé
             if (rowsProducte > 0 && rowsItem > 0) {
                 conn.commit();
                 logInfo("Producte eliminat correctament: " + prCodi);

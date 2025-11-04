@@ -30,7 +30,7 @@ public abstract class AbstractDAOProvincia implements IDAOProvincia {
             try {
                 conn.close();
             } catch (SQLException e) {
-                System.err.println("⚠️  Error tancant connexió: " + e.getMessage());
+                System.err.println("Error tancant connexió: " + e.getMessage());
             }
         }
     }
@@ -40,7 +40,7 @@ public abstract class AbstractDAOProvincia implements IDAOProvincia {
             try {
                 stmt.close();
             } catch (SQLException e) {
-                System.err.println("⚠️  Error tancant statement: " + e.getMessage());
+                System.err.println("Error tancant statement: " + e.getMessage());
             }
         }
     }
@@ -50,30 +50,30 @@ public abstract class AbstractDAOProvincia implements IDAOProvincia {
             try {
                 rs.close();
             } catch (SQLException e) {
-                System.err.println("⚠️  Error tancant resultset: " + e.getMessage());
+                System.err.println("Error tancant resultset: " + e.getMessage());
             }
         }
     }
 
     protected void logError(SQLException e) {
-        System.err.println("❌ Error SQL en DAOProvincia:");
-        System.err.println("   Missatge: " + e.getMessage());
-        System.err.println("   Codi error: " + e.getErrorCode());
-        System.err.println("   SQL State: " + e.getSQLState());
+        System.err.println("Error SQL en DAOProvincia:");
+        System.err.println("Missatge: " + e.getMessage());
+        System.err.println("Codi error: " + e.getErrorCode());
+        System.err.println("SQL State: " + e.getSQLState());
         e.printStackTrace();
     }
 
     protected boolean validarEntitat(Provincia p) {
         if (p == null) {
-            System.err.println("❌ Provincia no pot ser null");
+            System.err.println("Provincia no pot ser null");
             return false;
         }
         if (p.getPrCodi() == null || p.getPrCodi().trim().isEmpty()) {
-            System.err.println("❌ Codi província obligatori");
+            System.err.println("Codi província obligatori");
             return false;
         }
         if (p.getPrNom() == null || p.getPrNom().trim().isEmpty()) {
-            System.err.println("❌ Nom província obligatori");
+            System.err.println("Nom província obligatori");
             return false;
         }
         return true;

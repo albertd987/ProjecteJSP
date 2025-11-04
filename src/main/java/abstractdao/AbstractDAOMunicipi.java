@@ -30,7 +30,7 @@ public abstract class AbstractDAOMunicipi implements IDAOMunicipi {
             try {
                 conn.close();
             } catch (SQLException e) {
-                System.err.println("⚠️  Error tancant connexió: " + e.getMessage());
+                System.err.println("Error tancant connexió: " + e.getMessage());
             }
         }
     }
@@ -40,7 +40,7 @@ public abstract class AbstractDAOMunicipi implements IDAOMunicipi {
             try {
                 stmt.close();
             } catch (SQLException e) {
-                System.err.println("⚠️  Error tancant statement: " + e.getMessage());
+                System.err.println("Error tancant statement: " + e.getMessage());
             }
         }
     }
@@ -50,34 +50,34 @@ public abstract class AbstractDAOMunicipi implements IDAOMunicipi {
             try {
                 rs.close();
             } catch (SQLException e) {
-                System.err.println("⚠️  Error tancant resultset: " + e.getMessage());
+                System.err.println("Error tancant resultset: " + e.getMessage());
             }
         }
     }
 
     protected void logError(SQLException e) {
-        System.err.println("❌ Error SQL en DAOMunicipi:");
-        System.err.println("   Missatge: " + e.getMessage());
-        System.err.println("   Codi error: " + e.getErrorCode());
-        System.err.println("   SQL State: " + e.getSQLState());
+        System.err.println("Error SQL en DAOMunicipi:");
+        System.err.println("Missatge: " + e.getMessage());
+        System.err.println("Codi error: " + e.getErrorCode());
+        System.err.println("SQL State: " + e.getSQLState());
         e.printStackTrace();
     }
 
     protected boolean validarEntitat(Municipi m) {
         if (m == null) {
-            System.err.println("❌ Municipi no pot ser null");
+            System.err.println("Municipi no pot ser null");
             return false;
         }
         if (m.getMuPrCodi() == null || m.getMuPrCodi().trim().isEmpty()) {
-            System.err.println("❌ Codi província del municipi obligatori");
+            System.err.println("Codi província del municipi obligatori");
             return false;
         }
         if (m.getMuNum() == null || m.getMuNum().trim().isEmpty()) {
-            System.err.println("❌ Número municipi obligatori");
+            System.err.println(" Número municipi obligatori");
             return false;
         }
         if (m.getMuNom() == null || m.getMuNom().trim().isEmpty()) {
-            System.err.println("❌ Nom municipi obligatori");
+            System.err.println(" Nom municipi obligatori");
             return false;
         }
         return true;

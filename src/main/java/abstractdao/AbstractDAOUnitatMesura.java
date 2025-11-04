@@ -91,15 +91,15 @@ public abstract class AbstractDAOUnitatMesura implements IDAOUnitatMesura {
      */
     protected boolean validarEntitat(UnitatMesura um) {
         if (um == null) {
-            System.err.println("❌ UnitatMesura no pot ser null");
+            System.err.println("UnitatMesura no pot ser null");
             return false;
         }
         if (um.getUmCodi() == null || um.getUmCodi().trim().isEmpty()) {
-            System.err.println("❌ Codi unitat mesura obligatori");
+            System.err.println("Codi unitat mesura obligatori");
             return false;
         }
         if (um.getUmNom() == null || um.getUmNom().trim().isEmpty()) {
-            System.err.println("❌ Nom unitat mesura obligatori");
+            System.err.println("Nom unitat mesura obligatori");
             return false;
         }
         return true;

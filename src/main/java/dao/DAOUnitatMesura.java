@@ -43,7 +43,7 @@ public class DAOUnitatMesura extends AbstractDAOUnitatMesura {
                 unitats.add(um);
             }
             
-            System.out.println("✅ findAll() - Trobades " + unitats.size() + " unitats de mesura");
+            System.out.println("findAll() - Trobades " + unitats.size() + " unitats de mesura");
             
         } catch (SQLException e) {
             logError(e);
@@ -63,7 +63,7 @@ public class DAOUnitatMesura extends AbstractDAOUnitatMesura {
     @Override
     public UnitatMesura findById(String codi) {
         if (codi == null || codi.trim().isEmpty()) {
-            System.err.println("❌ Codi unitat mesura no pot ser buit");
+            System.err.println("Codi unitat mesura no pot ser buit");
             return null;
         }
         
@@ -81,10 +81,10 @@ public class DAOUnitatMesura extends AbstractDAOUnitatMesura {
             
             if (rs.next()) {
                 UnitatMesura um = mapResultSetToUnitatMesura(rs);
-                System.out.println("✅ findById(" + codi + ") - Trobat: " + um.getUmNom());
+                System.out.println("findById(" + codi + ") - Trobat: " + um.getUmNom());
                 return um;
             } else {
-                System.out.println("⚠️  findById(" + codi + ") - No trobat");
+                System.out.println("findById(" + codi + ") - No trobat");
                 return null;
             }
             

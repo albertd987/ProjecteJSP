@@ -51,7 +51,7 @@ public class DAOItem extends AbstractDAOItem {
             ps.setString(6, item.getItFoto());
             
             int files = ps.executeUpdate();
-            System.out.println("✅ Item inserit: " + item.getItCodi());
+            System.out.println("Item inserit: " + item.getItCodi());
             return files > 0;
             
         } catch (SQLException e) {
@@ -95,10 +95,10 @@ public class DAOItem extends AbstractDAOItem {
             int files = ps.executeUpdate();
             
             if (files > 0) {
-                System.out.println("✅ Item actualitzat: " + item.getItCodi());
+                System.out.println("Item actualitzat: " + item.getItCodi());
                 return true;
             } else {
-                System.err.println("⚠️  Item no trobat: " + item.getItCodi());
+                System.err.println("Item no trobat: " + item.getItCodi());
                 return false;
             }
             
@@ -118,7 +118,7 @@ public class DAOItem extends AbstractDAOItem {
     @Override
     public boolean eliminar(String codi) {
         if (codi == null || codi.trim().isEmpty()) {
-            System.err.println("❌ Codi no pot ser buit");
+            System.err.println("Codi no pot ser buit");
             return false;
         }
         
@@ -136,10 +136,10 @@ public class DAOItem extends AbstractDAOItem {
             int files = ps.executeUpdate();
             
             if (files > 0) {
-                System.out.println("✅ Item eliminat: " + codi);
+                System.out.println("Item eliminat: " + codi);
                 return true;
             } else {
-                System.err.println("⚠️  Item no trobat: " + codi);
+                System.err.println("Item no trobat: " + codi);
                 return false;
             }
             
@@ -159,7 +159,7 @@ public class DAOItem extends AbstractDAOItem {
     @Override
     public Item findById(String codi) {
         if (codi == null || codi.trim().isEmpty()) {
-            System.err.println("❌ Codi no pot ser buit");
+            System.err.println("Codi no pot ser buit");
             return null;
         }
         
@@ -182,7 +182,7 @@ public class DAOItem extends AbstractDAOItem {
                 return mapResultSetToItem(rs);
             }
             
-            System.out.println("⚠️  Item no trobat: " + codi);
+            System.out.println("Item no trobat: " + codi);
             return null;
             
         } catch (SQLException e) {
@@ -220,7 +220,7 @@ public class DAOItem extends AbstractDAOItem {
                 items.add(mapResultSetToItem(rs));
             }
             
-            System.out.println("📋 Items trobats: " + items.size());
+            System.out.println("Items trobats: " + items.size());
             return items;
             
         } catch (SQLException e) {
@@ -242,12 +242,12 @@ public class DAOItem extends AbstractDAOItem {
         List<Item> items = new ArrayList<>();
         
         if (tipus == null || tipus.trim().isEmpty()) {
-            System.err.println("❌ Tipus no pot ser buit");
+            System.err.println("Tipus no pot ser buit");
             return items;
         }
         
         if (!tipus.equals("C") && !tipus.equals("P")) {
-            System.err.println("❌ Tipus ha de ser 'C' o 'P'");
+            System.err.println("Tipus ha de ser 'C' o 'P'");
             return items;
         }
         
@@ -272,7 +272,7 @@ public class DAOItem extends AbstractDAOItem {
             }
             
             String tipusNom = tipus.equals("C") ? "Components" : "Productes";
-            System.out.println("📋 " + tipusNom + " trobats: " + items.size());
+            System.out.println(tipusNom + " trobats: " + items.size());
             return items;
             
         } catch (SQLException e) {
@@ -294,7 +294,7 @@ public class DAOItem extends AbstractDAOItem {
         List<Item> items = new ArrayList<>();
         
         if (nomPattern == null || nomPattern.trim().isEmpty()) {
-            System.err.println("❌ Patró de cerca no pot ser buit");
+            System.err.println("Patró de cerca no pot ser buit");
             return items;
         }
         
@@ -318,7 +318,7 @@ public class DAOItem extends AbstractDAOItem {
                 items.add(mapResultSetToItem(rs));
             }
             
-            System.out.println("🔍 Items trobats amb nom '" + nomPattern + "': " + items.size());
+            System.out.println("Items trobats amb nom '" + nomPattern + "': " + items.size());
             return items;
             
         } catch (SQLException e) {
@@ -358,7 +358,7 @@ public class DAOItem extends AbstractDAOItem {
                 items.add(mapResultSetToItem(rs));
             }
             
-            System.out.println("⚠️  Items amb stock < " + stockMinim + ": " + items.size());
+            System.out.println("Items amb stock < " + stockMinim + ": " + items.size());
             return items;
             
         } catch (SQLException e) {
@@ -391,7 +391,7 @@ public class DAOItem extends AbstractDAOItem {
             
             if (rs.next()) {
                 int total = rs.getInt("total");
-                System.out.println("📊 Total items: " + total);
+                System.out.println("Total items: " + total);
                 return total;
             }
             
@@ -416,11 +416,11 @@ public class DAOItem extends AbstractDAOItem {
         List<Item> items = new ArrayList<>();
         
         if (page < 1) {
-            System.err.println("❌ La pàgina ha de ser >= 1");
+            System.err.println("La pàgina ha de ser >= 1");
             return items;
         }
         if (size < 1) {
-            System.err.println("❌ La mida ha de ser >= 1");
+            System.err.println("La mida ha de ser >= 1");
             return items;
         }
         
@@ -450,7 +450,7 @@ public class DAOItem extends AbstractDAOItem {
                 items.add(mapResultSetToItem(rs));
             }
             
-            System.out.println("📄 Pàgina " + page + " (mida " + size + "): " + items.size() + " items");
+            System.out.println("Pàgina " + page + " (mida " + size + "): " + items.size() + " items");
             return items;
             
         } catch (SQLException e) {
