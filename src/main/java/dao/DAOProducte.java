@@ -60,9 +60,9 @@ public class DAOProducte extends AbstractDAOProducte {
 
             // 1️INSERT a Item (taula pare)
             String sqlItem = """
-                INSERT INTO Item (it_codi, it_tipus, it_nom, it_desc, it_stock, it_foto)
-                VALUES (?, ?, ?, ?, ?, ?)
-                """;
+                    INSERT INTO Item (it_codi, it_tipus, it_nom, it_desc, it_stock, it_foto)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                    """;
 
             psItem = conn.prepareStatement(sqlItem);
             psItem.setString(1, producte.getItCodi());
@@ -76,9 +76,9 @@ public class DAOProducte extends AbstractDAOProducte {
 
             // 2️INSERT a Producte (taula filla)
             String sqlProducte = """
-                INSERT INTO Producte (pr_codi)
-                VALUES (?)
-                """;
+                    INSERT INTO Producte (pr_codi)
+                    VALUES (?)
+                    """;
 
             psProducte = conn.prepareStatement(sqlProducte);
             psProducte.setString(1, producte.getPrCodi());
@@ -131,13 +131,13 @@ public class DAOProducte extends AbstractDAOProducte {
 
             // UPDATE només a Item (Producte no té camps a actualitzar)
             String sql = """
-                UPDATE Item
-                SET it_nom = ?, 
-                    it_desc = ?, 
-                    it_stock = ?, 
-                    it_foto = ?
-                WHERE it_codi = ? AND it_tipus = 'P'
-                """;
+                    UPDATE Item
+                    SET it_nom = ?,
+                        it_desc = ?,
+                        it_stock = ?,
+                        it_foto = ?
+                    WHERE it_codi = ? AND it_tipus = 'P'
+                    """;
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, producte.getItNom());
@@ -183,7 +183,7 @@ public class DAOProducte extends AbstractDAOProducte {
             conn = getConnection();
             conn.setAutoCommit(false); // Iniciar transacció
 
-            //1️DELETE de Producte (taula filla)
+            // 1️DELETE de Producte (taula filla)
             String sqlProducte = "DELETE FROM Producte WHERE pr_codi = ?";
             psProducte = conn.prepareStatement(sqlProducte);
             psProducte.setString(1, prCodi);
@@ -195,7 +195,7 @@ public class DAOProducte extends AbstractDAOProducte {
             psItem.setString(1, prCodi);
             int rowsItem = psItem.executeUpdate();
 
-            //Commit si ambdós DELETEs van bé
+            // Commit si ambdós DELETEs van bé
             if (rowsProducte > 0 && rowsItem > 0) {
                 conn.commit();
                 logInfo("Producte eliminat correctament: " + prCodi);
@@ -245,12 +245,12 @@ public class DAOProducte extends AbstractDAOProducte {
             conn = getConnection();
 
             String sql = """
-                SELECT i.it_codi, i.it_tipus, i.it_nom, i.it_desc, i.it_stock, i.it_foto,
-                       p.pr_codi
-                FROM Item i
-                JOIN Producte p ON i.it_codi = p.pr_codi
-                WHERE p.pr_codi = ?
-                """;
+                    SELECT i.it_codi, i.it_tipus, i.it_nom, i.it_desc, i.it_stock, i.it_foto,
+                           p.pr_codi
+                    FROM Item i
+                    JOIN Producte p ON i.it_codi = p.pr_codi
+                    WHERE p.pr_codi = ?
+                    """;
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, prCodi);
@@ -287,12 +287,12 @@ public class DAOProducte extends AbstractDAOProducte {
             conn = getConnection();
 
             String sql = """
-                SELECT i.it_codi, i.it_tipus, i.it_nom, i.it_desc, i.it_stock, i.it_foto,
-                       p.pr_codi
-                FROM Item i
-                JOIN Producte p ON i.it_codi = p.pr_codi
-                ORDER BY p.pr_codi
-                """;
+                    SELECT i.it_codi, i.it_tipus, i.it_nom, i.it_desc, i.it_stock, i.it_foto,
+                           p.pr_codi
+                    FROM Item i
+                    JOIN Producte p ON i.it_codi = p.pr_codi
+                    ORDER BY p.pr_codi
+                    """;
 
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -335,15 +335,15 @@ public class DAOProducte extends AbstractDAOProducte {
             int endRow = page * size;
 
             String sql = """
-                SELECT * FROM (
-                    SELECT i.it_codi, i.it_tipus, i.it_nom, i.it_desc, i.it_stock, i.it_foto,
-                           p.pr_codi,
-                           ROW_NUMBER() OVER (ORDER BY p.pr_codi) AS rnum
-                    FROM Item i
-                    JOIN Producte p ON i.it_codi = p.pr_codi
-                )
-                WHERE rnum BETWEEN ? AND ?
-                """;
+                    SELECT * FROM (
+                        SELECT i.it_codi, i.it_tipus, i.it_nom, i.it_desc, i.it_stock, i.it_foto,
+                               p.pr_codi,
+                               ROW_NUMBER() OVER (ORDER BY p.pr_codi) AS rnum
+                        FROM Item i
+                        JOIN Producte p ON i.it_codi = p.pr_codi
+                    )
+                    WHERE rnum BETWEEN ? AND ?
+                    """;
 
             ps = conn.prepareStatement(sql);
             ps.setInt(1, startRow);
@@ -387,13 +387,13 @@ public class DAOProducte extends AbstractDAOProducte {
             conn = getConnection();
 
             String sql = """
-                SELECT i.it_codi, i.it_tipus, i.it_nom, i.it_desc, i.it_stock, i.it_foto,
-                       p.pr_codi
-                FROM Item i
-                JOIN Producte p ON i.it_codi = p.pr_codi
-                WHERE UPPER(p.pr_codi) LIKE UPPER(?)
-                ORDER BY p.pr_codi
-                """;
+                    SELECT i.it_codi, i.it_tipus, i.it_nom, i.it_desc, i.it_stock, i.it_foto,
+                           p.pr_codi
+                    FROM Item i
+                    JOIN Producte p ON i.it_codi = p.pr_codi
+                    WHERE UPPER(p.pr_codi) LIKE UPPER(?)
+                    ORDER BY p.pr_codi
+                    """;
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, "%" + codiPattern + "%");
@@ -423,8 +423,8 @@ public class DAOProducte extends AbstractDAOProducte {
      * Algoritme:
      * 1. Si el producte no té components → preu = 0
      * 2. Per cada component del producte:
-     *    - Si és Component → sumar (quantitat × preu_mig del component)
-     *    - Si és Producte → sumar (quantitat × calcularPreuTotal recursiu)
+     * - Si és Component → sumar (quantitat × preu_mig del component)
+     * - Si és Producte → sumar (quantitat × calcularPreuTotal recursiu)
      */
     @Override
     public double calcularPreuTotal(String prCodi) {
@@ -443,16 +443,16 @@ public class DAOProducte extends AbstractDAOProducte {
 
             // Obtenir tots els items (components/subproductes) d'aquest producte
             String sql = """
-                SELECT 
-                    pi.pi_it_codi,
-                    pi.quantitat,
-                    i.it_tipus,
-                    c.cm_preu_mig
-                FROM Prod_Item pi
-                JOIN Item i ON pi.pi_it_codi = i.it_codi
-                LEFT JOIN Component c ON i.it_codi = c.cm_codi
-                WHERE pi.pi_pr_codi = ?
-                """;
+                    SELECT
+                        pi.pi_it_codi,
+                        pi.quantitat,
+                        i.it_tipus,
+                        c.cm_preu_mig
+                    FROM Prod_Item pi
+                    JOIN Item i ON pi.pi_it_codi = i.it_codi
+                    LEFT JOIN Component c ON i.it_codi = c.cm_codi
+                    WHERE pi.pi_pr_codi = ?
+                    """;
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, prCodi);
@@ -463,7 +463,7 @@ public class DAOProducte extends AbstractDAOProducte {
                 String itCodi = rs.getString("pi_it_codi");
                 int quantitat = rs.getInt("quantitat");
                 String itTipus = rs.getString("it_tipus");
-                
+
                 double preuItem = 0.0;
 
                 if ("C".equals(itTipus)) {
@@ -523,6 +523,19 @@ public class DAOProducte extends AbstractDAOProducte {
         }
 
         return 0;
+    }
+
+    /**
+     * Valida que un producte tingui almenys un component
+     * 
+     * Aquest mètode és públic per poder-lo cridar des de controllers/servlets
+     * abans de generar BOM o marcar producte com a complet
+     * 
+     * @param prCodi Codi del producte a validar
+     * @return true si el producte té components, false si està buit
+     */
+    public boolean teComponents(String prCodi) {
+        return validarProducteComplet(prCodi);
     }
 
 }

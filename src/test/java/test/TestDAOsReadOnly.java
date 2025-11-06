@@ -56,6 +56,7 @@ public class TestDAOsReadOnly {
         // Test findById()
         System.out.println("\n2️⃣  Test findById('KG'):");
         UnitatMesura um = dao.findById("KG");
+        
         if (um != null) {
             System.out.println("   Trobat: " + um);
         }

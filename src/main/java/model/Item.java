@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author DomenechObiolAlbert
  * @version 1.0
  */
-public class Item {
+public class Item { //mirar això, ha de ser abstracta
 	
     private String itCodi;    // PK
     private String itTipus;   // 'C' = Component, 'P' = Producte

@@ -158,5 +158,66 @@ public abstract class AbstractDAOProducte implements IDAOProducte {
         
         return producte;
     }
+    /**
+ * Valida que un producte tingui almenys un component al seu BOM
+ * 
+ * IMPORTANT: Aquest mètode NO valida que els components existeixin,
+ * només que el producte tingui almenys 1 relació a Prod_Item
+ * 
+ * Ús recomanat:
+ * - Abans de generar BOM per descàrrega
+ * - Abans de marcar producte com a "actiu"
+ * - En validacions de formulari
+ * 
+ * @param prCodi Codi del producte a validar
+ * @return true si té almenys 1 component, false si està buit
+ */
+protected boolean validarProducteComplet(String prCodi) {
+    if (prCodi == null || prCodi.trim().isEmpty()) {
+        logError("Codi de producte null o buit en validació");
+        return false;
+    }
+    
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    
+    try {
+        conn = getConnection();
+        
+        // Comptar components del producte
+        String sql = """
+            SELECT COUNT(*) as num_components
+            FROM Prod_Item
+            WHERE pi_pr_codi = ?
+            """;
+        
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, prCodi);
+        rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            int numComponents = rs.getInt("num_components");
+            
+            if (numComponents == 0) {
+                logError("El producte " + prCodi + " no té components. Mínim requerit: 1");
+                return false;
+            }
+            
+            logInfo("Producte " + prCodi + " validat correctament amb " + 
+                    numComponents + " component(s)");
+            return true;
+        }
+        
+        return false;
+        
+    } catch (SQLException e) {
+        logError("Error validant completitud del producte: " + e.getMessage());
+        return false;
+        
+    } finally {
+        tancarRecursos(rs, ps, conn);
+    }
+}
 
 }

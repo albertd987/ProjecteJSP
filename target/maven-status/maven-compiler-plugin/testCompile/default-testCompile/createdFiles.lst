@@ -1,6 +1,7 @@
 test\TestDAOProdItem.class
 test\TestDAOItem.class
 test\TestDAOComponent.class
+test\TestValidacioProducte.class
 test\TestDAOProducte.class
 test\TestDAOFactory.class
 test\TestDAOProvCompSimple.class
