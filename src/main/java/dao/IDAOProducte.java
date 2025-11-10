@@ -81,6 +81,7 @@ public interface IDAOProducte {
      */
     double calcularPreuTotal(String prCodi);
 
+    boolean teComponents(String prCodi);
     /**
      * Compta el total de productes
      * @return Número total de productes
