@@ -93,4 +93,5 @@ public interface IDAOItem {
      * @return Llista d'items de la pàgina especificada
      */
     List<Item> findAllPaginat(int page, int size);
+    double calcularCostItem(String codiItem);
 }

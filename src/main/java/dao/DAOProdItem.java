@@ -58,9 +58,9 @@ public class DAOProdItem extends AbstractDAOProdItem {
             conn = getConnection();
 
             String sql = """
-                INSERT INTO Prod_Item (pi_pr_codi, pi_it_codi, quantitat)
-                VALUES (?, ?, ?)
-                """;
+                    INSERT INTO Prod_Item (pi_pr_codi, pi_it_codi, quantitat)
+                    VALUES (?, ?, ?)
+                    """;
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, prodItem.getPiPrCodi());
@@ -70,8 +70,8 @@ public class DAOProdItem extends AbstractDAOProdItem {
             int rows = ps.executeUpdate();
 
             if (rows > 0) {
-                logInfo("ProdItem inserit correctament: " + 
-                       prodItem.getPiPrCodi() + " - " + prodItem.getPiItCodi());
+                logInfo("ProdItem inserit correctament: " +
+                        prodItem.getPiPrCodi() + " - " + prodItem.getPiItCodi());
                 return true;
             } else {
                 logError("No s'ha pogut inserir el ProdItem");
@@ -104,10 +104,10 @@ public class DAOProdItem extends AbstractDAOProdItem {
             conn = getConnection();
 
             String sql = """
-                UPDATE Prod_Item
-                SET quantitat = ?
-                WHERE pi_pr_codi = ? AND pi_it_codi = ?
-                """;
+                    UPDATE Prod_Item
+                    SET quantitat = ?
+                    WHERE pi_pr_codi = ? AND pi_it_codi = ?
+                    """;
 
             ps = conn.prepareStatement(sql);
             ps.setInt(1, prodItem.getQuantitat());
@@ -117,11 +117,11 @@ public class DAOProdItem extends AbstractDAOProdItem {
             int rows = ps.executeUpdate();
 
             if (rows > 0) {
-                logInfo("ProdItem actualitzat correctament: " + 
-                       prodItem.getPiPrCodi() + " - " + prodItem.getPiItCodi());
+                logInfo("ProdItem actualitzat correctament: " +
+                        prodItem.getPiPrCodi() + " - " + prodItem.getPiItCodi());
                 return true;
             } else {
-                logError("No s'ha trobat el ProdItem a actualitzar: " + 
+                logError("No s'ha trobat el ProdItem a actualitzar: " +
                         prodItem.getPiPrCodi() + " - " + prodItem.getPiItCodi());
                 return false;
             }
@@ -152,9 +152,9 @@ public class DAOProdItem extends AbstractDAOProdItem {
             conn = getConnection();
 
             String sql = """
-                DELETE FROM Prod_Item
-                WHERE pi_pr_codi = ? AND pi_it_codi = ?
-                """;
+                    DELETE FROM Prod_Item
+                    WHERE pi_pr_codi = ? AND pi_it_codi = ?
+                    """;
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, prCodi);
@@ -201,10 +201,10 @@ public class DAOProdItem extends AbstractDAOProdItem {
             conn = getConnection();
 
             String sql = """
-                SELECT pi_pr_codi, pi_it_codi, quantitat
-                FROM Prod_Item
-                WHERE pi_pr_codi = ? AND pi_it_codi = ?
-                """;
+                    SELECT pi_pr_codi, pi_it_codi, quantitat
+                    FROM Prod_Item
+                    WHERE pi_pr_codi = ? AND pi_it_codi = ?
+                    """;
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, prCodi);
@@ -242,10 +242,10 @@ public class DAOProdItem extends AbstractDAOProdItem {
             conn = getConnection();
 
             String sql = """
-                SELECT pi_pr_codi, pi_it_codi, quantitat
-                FROM Prod_Item
-                ORDER BY pi_pr_codi, pi_it_codi
-                """;
+                    SELECT pi_pr_codi, pi_it_codi, quantitat
+                    FROM Prod_Item
+                    ORDER BY pi_pr_codi, pi_it_codi
+                    """;
 
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -286,11 +286,11 @@ public class DAOProdItem extends AbstractDAOProdItem {
             conn = getConnection();
 
             String sql = """
-                SELECT pi_pr_codi, pi_it_codi, quantitat
-                FROM Prod_Item
-                WHERE pi_pr_codi = ?
-                ORDER BY pi_it_codi
-                """;
+                    SELECT pi_pr_codi, pi_it_codi, quantitat
+                    FROM Prod_Item
+                    WHERE pi_pr_codi = ?
+                    ORDER BY pi_it_codi
+                    """;
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, prCodi);
@@ -364,6 +364,45 @@ public class DAOProdItem extends AbstractDAOProdItem {
         }
 
         return 0;
+    }
+    @Override
+    public List<ProdItem> getProductesQueUsenItem(String itCodi) {
+        List<ProdItem> llista = new ArrayList<>();
+
+        // Validació d'entrada
+        if (itCodi == null || itCodi.trim().isEmpty()) {
+            System.err.println("getProductesQueUsenItem: codi d'ítem null o buit");
+            return llista;
+        }
+
+        String sql = "SELECT pi_pr_codi, pi_it_codi, quantitat " +
+                "FROM Prod_Item " +
+                "WHERE pi_it_codi = ? " +
+                "ORDER BY pi_pr_codi";
+
+        try (Connection conn = ConnexioOracle.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, itCodi.trim());
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    ProdItem item = new ProdItem(
+                            rs.getString("pi_pr_codi"),
+                            rs.getString("pi_it_codi"),
+                            rs.getInt("quantitat"));
+                    llista.add(item);
+                }
+            }
+
+            System.out.println("Items trobats que usen " + itCodi + ": " + llista.size());
+
+        } catch (SQLException e) {
+            System.err.println("Error obtenint productes que usen l'ítem " + itCodi);
+            System.err.println("   SQL Error: " + e.getMessage());
+        }
+
+        return llista;
     }
 
 }
