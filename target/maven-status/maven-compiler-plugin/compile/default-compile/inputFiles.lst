@@ -1,14 +1,15 @@
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOItem.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\reports\BOMReportPDF.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOFactory.java
+C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOUsuari.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\Proveidor.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOProvincia.java
+C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\Usuari.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\abstractdao\AbstractDAOUnitatMesura.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOProvincia.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\Item.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOUnitatMesura.java
+C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\reports\BOMReportJasper.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOMunicipi.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\reports\TestBOMReportPDF.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOComponent.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\UnitatMesura.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOProdItem.java
@@ -37,4 +38,5 @@ C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOMunicipi.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOUnitatMesura.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\ProdItem.java
+C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOUsuari.java
 C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOProdItem.java
