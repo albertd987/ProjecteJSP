@@ -33,10 +33,10 @@ dao\IDAOUnitatMesura.class
 dao\DAOComponent.class
 model\Proveidor.class
 dao\IDAOProveidor.class
+dao\reports\BOMComponentDTO.class
 model\Item.class
 dao\DAOProveidor.class
 dao\DAOProvincia.class
-dao\reports\BOMReportJasper$BOMComponentDTO.class
 dao\IDAOProvincia.class
 model\Component.class
 model\ProvComp.class

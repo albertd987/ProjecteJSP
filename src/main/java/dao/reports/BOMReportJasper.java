@@ -1,5 +1,6 @@
 package dao.reports;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -34,9 +35,10 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
  * - Càlcul de cost total (components x quantitat)
  * - Plantilla visual editable (.jrxml)
  * - Separació entre disseny (XML) i lògica (Java)
+ * - VERSIÓ 2.1: Suport per mostrar foto del producte
  * 
  * @author DomenechObiolAlbert
- * @version 2.0 (migrat de iText a JasperReports)
+ * @version 2.1 (afegit suport per fotos)
  */
 public class BOMReportJasper {
     
@@ -61,14 +63,14 @@ public class BOMReportJasper {
     /**
      * Genera un PDF amb el BOM complet d'un producte i l'escriu a un OutputStream
      * 
-     * Aquest mètode és ideal per servlets que volen retornar el PDF directament
-     * al HttpServletResponse
+     * VERSIÓ 2.1: Afegit paràmetre uploadPath per localitzar fotos
      * 
      * @param prCodi Codi del producte
      * @param outputStream Stream on escriure el PDF
+     * @param uploadPath Ruta absoluta a la carpeta uploads (pot ser null)
      * @throws Exception si hi ha error generant el PDF
      */
-    public void generarBOMPDF(String prCodi, OutputStream outputStream) throws Exception {
+    public void generarBOMPDF(String prCodi, OutputStream outputStream, String uploadPath) throws Exception {
         System.out.println("🔍 [BOMReportJasper] Inici generació per producte: " + prCodi);
         
         validarParametres(prCodi, outputStream);
@@ -89,9 +91,9 @@ public class BOMReportJasper {
             throw new IllegalStateException("El producte " + prCodi + " no té components");
         }
         
-        // 3. Preparar dades per JasperReports
+        // 3. Preparar dades per JasperReports (amb ruta de foto)
         System.out.println("🔍 [BOMReportJasper] Preparant paràmetres...");
-        Map<String, Object> parameters = prepararParametres(producte, items);
+        Map<String, Object> parameters = prepararParametres(producte, items, uploadPath);
         System.out.println("✅ [BOMReportJasper] Paràmetres preparats: " + parameters.size());
         
         System.out.println("🔍 [BOMReportJasper] Preparant DTOs...");
@@ -100,7 +102,7 @@ public class BOMReportJasper {
         
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(componentDTOs);
         
-        // 4. Compilar plantilla (en producció, millor usar .jasper precompilat)
+        // 4. Compilar plantilla
         System.out.println("🔍 [BOMReportJasper] Carregant plantilla des de: " + TEMPLATE_PATH);
         InputStream templateStream = getClass().getResourceAsStream(TEMPLATE_PATH);
         if (templateStream == null) {
@@ -125,6 +127,15 @@ public class BOMReportJasper {
     }
     
     /**
+     * Mètode legacy sense uploadPath (per compatibilitat)
+     * @deprecated Usar generarBOMPDF(String, OutputStream, String)
+     */
+    @Deprecated
+    public void generarBOMPDF(String prCodi, OutputStream outputStream) throws Exception {
+        generarBOMPDF(prCodi, outputStream, null);
+    }
+    
+    /**
      * Valida els paràmetres d'entrada
      */
     private void validarParametres(String prCodi, OutputStream outputStream) {
@@ -138,8 +149,10 @@ public class BOMReportJasper {
     
     /**
      * Prepara els paràmetres per la plantilla JasperReports
+     * 
+     * VERSIÓ 2.1: Afegit PRODUCT_IMAGE_PATH per mostrar foto
      */
-    private Map<String, Object> prepararParametres(Producte producte, List<ProdItem> items) {
+    private Map<String, Object> prepararParametres(Producte producte, List<ProdItem> items, String uploadPath) {
         Map<String, Object> parameters = new HashMap<>();
         
         parameters.put("PRODUCT_CODE", producte.getPrCodi());
@@ -149,7 +162,46 @@ public class BOMReportJasper {
         parameters.put("GENERATION_DATE", new Date());
         parameters.put("TOTAL_COST", calcularCostTotal(items));
         
+        // VERSIÓ 2.1: Afegir ruta de la foto si existeix
+        String fotoPath = obtenirRutaFoto(producte, uploadPath);
+        parameters.put("PRODUCT_IMAGE_PATH", fotoPath);
+        System.out.println("🖼️ [BOMReportJasper] Ruta foto: " + (fotoPath != null ? fotoPath : "cap foto"));
+        
         return parameters;
+    }
+    
+    /**
+     * Obté la ruta absoluta de la foto del producte
+     * 
+     * @param producte Producte amb possible foto
+     * @param uploadPath Ruta base de uploads
+     * @return Ruta absoluta de la foto o null si no existeix
+     */
+    private String obtenirRutaFoto(Producte producte, String uploadPath) {
+        // Si no tenim ruta d'uploads o el producte no té foto, retornar null
+        if (uploadPath == null || uploadPath.isEmpty()) {
+            System.out.println("🖼️ [BOMReportJasper] uploadPath és null o buit");
+            return null;
+        }
+        
+        String nomFoto = producte.getItFoto();
+        if (nomFoto == null || nomFoto.isEmpty()) {
+            System.out.println("🖼️ [BOMReportJasper] Producte sense foto assignada");
+            return null;
+        }
+        
+        // Construir ruta completa
+        String rutaCompleta = uploadPath + File.separator + "productes" + File.separator + nomFoto;
+        
+        // Verificar que el fitxer existeix
+        File fotoFile = new File(rutaCompleta);
+        if (!fotoFile.exists()) {
+            System.out.println("⚠️ [BOMReportJasper] Fitxer no trobat: " + rutaCompleta);
+            return null;
+        }
+        
+        System.out.println("✅ [BOMReportJasper] Foto trobada: " + rutaCompleta);
+        return rutaCompleta;
     }
     
     /**
@@ -174,10 +226,12 @@ public class BOMReportJasper {
                     unitatMesura = component.getCmUmCodi() != null ? component.getCmUmCodi() : "ud";
                 }
             } else if ("P".equals(tipusItem)) {
-                preuUnitat = daoProducte.calcularPreuTotal(item.getPiItCodi());
+                // Per subproductes, calcular cost recursivament
+                preuUnitat = daoItem.calcularCostItem(item.getPiItCodi());
+                unitatMesura = "conj";
             }
             
-            double costTotal = item.getQuantitat() * preuUnitat;
+            double costTotal = preuUnitat * item.getQuantitat();
             
             BOMComponentDTO dto = new BOMComponentDTO(
                 item.getPiItCodi(),
@@ -195,7 +249,7 @@ public class BOMReportJasper {
     }
     
     /**
-     * Calcula el cost total del BOM
+     * Calcula el cost total de tots els components
      */
     private double calcularCostTotal(List<ProdItem> items) {
         double total = 0.0;
@@ -209,49 +263,16 @@ public class BOMReportJasper {
             
             if ("C".equals(tipusItem)) {
                 Component component = daoComponent.findById(item.getPiItCodi());
-                if (component != null) {
-                    preuUnitat = component.getCmPreuMig() != null ? component.getCmPreuMig() : 0.0;
+                if (component != null && component.getCmPreuMig() != null) {
+                    preuUnitat = component.getCmPreuMig();
                 }
             } else if ("P".equals(tipusItem)) {
-                preuUnitat = daoProducte.calcularPreuTotal(item.getPiItCodi());
+                preuUnitat = daoItem.calcularCostItem(item.getPiItCodi());
             }
             
-            total += item.getQuantitat() * preuUnitat;
+            total += preuUnitat * item.getQuantitat();
         }
         
         return total;
-    }
-    
-    /**
-     * DTO (Data Transfer Object) per representar un component del BOM
-     * 
-     * JasperReports utilitza JavaBeans per poblar els reports
-     * Aquest DTO ha de tenir getters públics per a tots els camps
-     */
-    public static class BOMComponentDTO {
-        private String piItCodi;
-        private String componentName;
-        private Integer quantitat;  // ✅ Canviat de Double a Integer
-        private String unitatMesura;
-        private Double preuUnitat;
-        private Double costTotal;
-        
-        public BOMComponentDTO(String piItCodi, String componentName, Integer quantitat,
-                              String unitatMesura, Double preuUnitat, Double costTotal) {
-            this.piItCodi = piItCodi;
-            this.componentName = componentName;
-            this.quantitat = quantitat;
-            this.unitatMesura = unitatMesura;
-            this.preuUnitat = preuUnitat;
-            this.costTotal = costTotal;
-        }
-        
-        // GETTERS (obligatoris per JasperReports)
-        public String getPiItCodi() { return piItCodi; }
-        public String getComponentName() { return componentName; }
-        public Integer getQuantitat() { return quantitat; }  // ✅ Retorna Integer
-        public String getUnitatMesura() { return unitatMesura; }
-        public Double getPreuUnitat() { return preuUnitat; }
-        public Double getCostTotal() { return costTotal; }
     }
 }
