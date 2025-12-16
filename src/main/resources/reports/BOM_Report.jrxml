@@ -5,17 +5,17 @@
     name="BOM_Report" pageWidth="595" pageHeight="842" columnWidth="515" leftMargin="40"
     rightMargin="40" topMargin="40" bottomMargin="40">
 
-    <!-- PARAMETERS: Dades del producte -->
+     PARAMETERS: Dades del producte 
     <parameter name="PRODUCT_CODE" class="java.lang.String" />
     <parameter name="PRODUCT_NAME" class="java.lang.String" />
     <parameter name="PRODUCT_DESC" class="java.lang.String" />
     <parameter name="PRODUCT_STOCK" class="java.lang.Integer" />
     <parameter name="GENERATION_DATE" class="java.util.Date" />
     <parameter name="TOTAL_COST" class="java.lang.Double" />
-    <!-- VERSIÓ 2.1: Paràmetre per la foto del producte -->
+     VERSIÓ 2.1: Paràmetre per la foto del producte 
     <parameter name="PRODUCT_IMAGE_PATH" class="java.lang.String" />
 
-    <!-- FIELDS: Dades dels components (del DataSource) -->
+     FIELDS: Dades dels components (del DataSource) 
     <field name="piItCodi" class="java.lang.String" />
     <field name="componentName" class="java.lang.String" />
     <field name="quantitat" class="java.lang.Integer" />
@@ -23,17 +23,17 @@
     <field name="preuUnitat" class="java.lang.Double" />
     <field name="costTotal" class="java.lang.Double" />
 
-    <!-- VARIABLES: Càlcul del subtotal -->
+     VARIABLES: Càlcul del subtotal 
     <variable name="SUBTOTAL" class="java.lang.Double" calculation="Sum">
         <variableExpression><![CDATA[$F{costTotal}]]></variableExpression>
     </variable>
 
-    <!-- ========================================== -->
-    <!-- TITLE BAND: Logo i títol -->
-    <!-- ========================================== -->
+     ========================================== 
+     TITLE BAND: Logo i títol 
+     ========================================== 
     <title>
         <band height="120">
-            <!-- Nom de l'empresa -->
+             Nom de l'empresa 
             <staticText>
                 <reportElement x="0" y="0" width="515" height="40" />
                 <textElement textAlignment="Center" verticalAlignment="Middle">
@@ -42,7 +42,7 @@
                 <text><![CDATA[TALLERS MANOLO]]></text>
             </staticText>
 
-            <!-- Subtítol -->
+             Subtítol 
             <staticText>
                 <reportElement x="0" y="45" width="515" height="25" />
                 <textElement textAlignment="Center" verticalAlignment="Middle">
@@ -51,7 +51,7 @@
                 <text><![CDATA[Bill of Materials (BOM)]]></text>
             </staticText>
 
-            <!-- Línia separadora -->
+             Línia separadora 
             <line>
                 <reportElement x="0" y="80" width="515" height="1" />
                 <graphicElement>
@@ -61,12 +61,12 @@
         </band>
     </title>
 
-    <!-- ========================================== -->
-    <!-- PAGE HEADER: Informació del producte AMB FOTO -->
-    <!-- ========================================== -->
+     ========================================== 
+     PAGE HEADER: Informació del producte AMB FOTO 
+     ========================================== 
     <pageHeader>
         <band height="130">
-            <!-- VERSIÓ 2.1: Foto del producte (si existeix) -->
+             VERSIÓ 2.1: Foto del producte (si existeix) 
             <image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" isUsingCache="true"
                 onErrorType="Blank">
                 <reportElement x="0" y="5" width="100" height="100">
@@ -78,7 +78,7 @@
                 <imageExpression><![CDATA[$P{PRODUCT_IMAGE_PATH}]]></imageExpression>
             </image>
 
-            <!-- Placeholder quan no hi ha foto -->
+             Placeholder quan no hi ha foto 
             <staticText>
                 <reportElement mode="Opaque" x="0" y="5" width="100" height="100"
                     backcolor="#F0F0F0">
@@ -93,7 +93,7 @@
                 <text><![CDATA[Sense foto]]></text>
             </staticText>
 
-            <!-- Codi producte -->
+             Codi producte 
             <staticText>
                 <reportElement x="120" y="5" width="100" height="20" />
                 <textElement>
@@ -109,7 +109,7 @@
                 <textFieldExpression><![CDATA[$P{PRODUCT_CODE}]]></textFieldExpression>
             </textField>
 
-            <!-- Nom producte -->
+             Nom producte 
             <staticText>
                 <reportElement x="120" y="28" width="100" height="20" />
                 <textElement>
@@ -125,7 +125,7 @@
                 <textFieldExpression><![CDATA[$P{PRODUCT_NAME}]]></textFieldExpression>
             </textField>
 
-            <!-- Descripció -->
+             Descripció 
             <staticText>
                 <reportElement x="120" y="51" width="100" height="20" />
                 <textElement>
@@ -141,7 +141,7 @@
                 <textFieldExpression><![CDATA[$P{PRODUCT_DESC} != null ? $P{PRODUCT_DESC} : "-"]]></textFieldExpression>
             </textField>
 
-            <!-- Stock -->
+             Stock 
             <staticText>
                 <reportElement x="120" y="74" width="100" height="20" />
                 <textElement>
@@ -157,7 +157,7 @@
                 <textFieldExpression><![CDATA[$P{PRODUCT_STOCK}]]></textFieldExpression>
             </textField>
 
-            <!-- Data de generació -->
+             Data de generació 
             <staticText>
                 <reportElement x="120" y="97" width="100" height="20" />
                 <textElement>
@@ -175,9 +175,9 @@
         </band>
     </pageHeader>
 
-    <!-- ========================================== -->
-    <!-- COLUMN HEADER: Capçalera de la taula -->
-    <!-- ========================================== -->
+     ========================================== 
+     COLUMN HEADER: Capçalera de la taula 
+     ========================================== 
     <columnHeader>
         <band height="30">
             <staticText>
@@ -254,12 +254,12 @@
         </band>
     </columnHeader>
 
-    <!-- ========================================== -->
-    <!-- DETAIL BAND: Files de dades -->
-    <!-- ========================================== -->
+     ========================================== 
+     DETAIL BAND: Files de dades 
+     ========================================== 
     <detail>
         <band height="22">
-            <!-- Codi -->
+             Codi 
             <textField>
                 <reportElement mode="Opaque" x="0" y="0" width="80" height="20"
                     backcolor="#F8F9FA" />
@@ -272,7 +272,7 @@
                 <textFieldExpression><![CDATA[$F{piItCodi}]]></textFieldExpression>
             </textField>
 
-            <!-- Nom -->
+             Nom 
             <textField>
                 <reportElement mode="Opaque" x="80" y="0" width="150" height="20"
                     backcolor="#F8F9FA" />
@@ -286,7 +286,7 @@
                 <textFieldExpression><![CDATA[$F{componentName}]]></textFieldExpression>
             </textField>
 
-            <!-- Quantitat -->
+             Quantitat 
             <textField>
                 <reportElement mode="Opaque" x="230" y="0" width="60" height="20"
                     backcolor="#F8F9FA" />
@@ -299,7 +299,7 @@
                 <textFieldExpression><![CDATA[$F{quantitat}]]></textFieldExpression>
             </textField>
 
-            <!-- Unitat -->
+             Unitat 
             <textField>
                 <reportElement mode="Opaque" x="290" y="0" width="50" height="20"
                     backcolor="#F8F9FA" />
@@ -312,7 +312,7 @@
                 <textFieldExpression><![CDATA[$F{unitatMesura}]]></textFieldExpression>
             </textField>
 
-            <!-- Preu unitari -->
+             Preu unitari 
             <textField pattern="#,##0.00 €">
                 <reportElement mode="Opaque" x="340" y="0" width="85" height="20"
                     backcolor="#F8F9FA" />
@@ -326,7 +326,7 @@
                 <textFieldExpression><![CDATA[$F{preuUnitat}]]></textFieldExpression>
             </textField>
 
-            <!-- Cost total -->
+             Cost total 
             <textField pattern="#,##0.00 €">
                 <reportElement mode="Opaque" x="425" y="0" width="90" height="20"
                     backcolor="#F8F9FA" />
@@ -342,9 +342,9 @@
         </band>
     </detail>
 
-    <!-- ========================================== -->
-    <!-- PAGE FOOTER: Paginació -->
-    <!-- ========================================== -->
+     ========================================== 
+     PAGE FOOTER: Paginació 
+     ========================================== 
     <pageFooter>
         <band height="25">
             <textField>
@@ -364,12 +364,12 @@
         </band>
     </pageFooter>
 
-    <!-- ========================================== -->
-    <!-- SUMMARY BAND: Totals -->
-    <!-- ========================================== -->
+     ========================================== 
+     SUMMARY BAND: Totals 
+     ========================================== 
     <summary>
         <band height="80">
-            <!-- Línia separadora -->
+             Línia separadora 
             <line>
                 <reportElement x="0" y="5" width="515" height="1" />
                 <graphicElement>
@@ -377,7 +377,7 @@
                 </graphicElement>
             </line>
 
-            <!-- Total -->
+             Total 
             <staticText>
                 <reportElement mode="Opaque" x="290" y="15" width="135" height="30"
                     backcolor="#007BFF" forecolor="#FFFFFF" />
@@ -396,7 +396,7 @@
                 <textFieldExpression><![CDATA[$P{TOTAL_COST}]]></textFieldExpression>
             </textField>
 
-            <!-- Nota peu -->
+             Nota peu 
             <staticText>
                 <reportElement x="0" y="55" width="515" height="20" />
                 <textElement textAlignment="Center">

@@ -79,6 +79,7 @@ public interface IDAOProducte {
      * @param prCodi Codi del producte
      * @return Preu total del producte o 0.0 si no existeix o no té components
      */
+    List<Producte> filtrarPerCodiPaginat(String codiPattern, int page, int size);
     double calcularPreuTotal(String prCodi);
 
     boolean teComponents(String prCodi);
@@ -87,5 +88,6 @@ public interface IDAOProducte {
      * @return Número total de productes
      */
     int countTotal();
+    int countFiltrats(String codiPattern);
 
 }

@@ -1,43 +1,44 @@
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOItem.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOFactory.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOUsuari.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\Proveidor.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOProvincia.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\Usuari.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\abstractdao\AbstractDAOUnitatMesura.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOProvincia.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\Item.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOUnitatMesura.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\reports\BOMReportJasper.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOMunicipi.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOComponent.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\UnitatMesura.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOProdItem.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\util\ConnexioOracle.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\Component.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\reports\BOMComponentDTO.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOProducte.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\Provincia.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOProducte.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\abstractdao\AbstractDAOProducte.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOComponent.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\Producte.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\ProvComp.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\abstractdao\AbstractDAOComponent.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\abstractdao\AbstractDAOItem.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOProvComp.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\abstractdao\AbstractDAOProdItem.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOProvComp.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOProveidor.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\abstractdao\AbstractDAOMunicipi.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\abstractdao\AbstractDAOProvComp.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOProveidor.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\abstractdao\AbstractDAOProveidor.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\abstractdao\AbstractDAOProvincia.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\Municipi.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOItem.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOMunicipi.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOUnitatMesura.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\model\ProdItem.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\DAOUsuari.java
-C:\Users\domen\Desktop\Segon DAW\Primer Projecte\CapaPersistencia\src\main\java\dao\IDAOProdItem.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\DAOUsuari.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\IDAOProvComp.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\abstractdao\AbstractDAOUnitatMesura.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\IDAOItem.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\abstractdao\AbstractDAOMunicipi.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\abstractdao\AbstractDAOItem.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\reports\BOMReportJasper.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\IDAOProducte.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\model\Proveidor.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\IDAOMunicipi.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\IDAOUsuari.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\model\ProdItem.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\model\Component.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\DAOProdItem.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\IDAOProdItem.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\util\CloudinaryService.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\model\Item.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\model\Municipi.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\util\ConnexioOracle.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\abstractdao\AbstractDAOComponent.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\DAOMunicipi.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\DAOUnitatMesura.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\DAOProvincia.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\IDAOProveidor.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\DAOItem.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\model\Provincia.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\model\UnitatMesura.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\IDAOProvincia.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\abstractdao\AbstractDAOProdItem.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\reports\BOMComponentDTO.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\model\Producte.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\model\ProvComp.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\DAOFactory.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\DAOProveidor.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\abstractdao\AbstractDAOProducte.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\abstractdao\AbstractDAOProvComp.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\DAOProducte.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\DAOProvComp.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\abstractdao\AbstractDAOProveidor.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\abstractdao\AbstractDAOProvincia.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\model\Usuari.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\IDAOComponent.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\IDAOUnitatMesura.java
+C:\Users\isard\Documents\NetBeansProjects\ProjecteJSP\src\main\java\dao\DAOComponent.java

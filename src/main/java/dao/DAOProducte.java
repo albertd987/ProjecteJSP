@@ -537,5 +537,93 @@ public class DAOProducte extends AbstractDAOProducte {
     public boolean teComponents(String prCodi) {
         return validarProducteComplet(prCodi);
     }
+    
+    @Override
+public List<Producte> filtrarPerCodiPaginat(String codiPattern, int page, int size) {
+
+    List<Producte> productes = new ArrayList<>();
+
+    if (page < 1 || size < 1) {
+        logError("Paràmetres invàlids de paginació");
+        return productes;
+    }
+
+    int startRow = (page - 1) * size + 1;
+    int endRow = page * size;
+
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    try {
+        conn = getConnection();
+
+        String sql = """
+            SELECT * FROM (
+                SELECT i.it_codi, i.it_tipus, i.it_nom, i.it_desc, i.it_stock, i.it_foto,
+                       p.pr_codi,
+                       ROW_NUMBER() OVER (ORDER BY p.pr_codi) AS rnum
+                FROM Item i
+                JOIN Producte p ON i.it_codi = p.pr_codi
+                WHERE UPPER(p.pr_codi) LIKE UPPER(?)
+            )
+            WHERE rnum BETWEEN ? AND ?
+            """;
+
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, "%" + codiPattern + "%");
+        ps.setInt(2, startRow);
+        ps.setInt(3, endRow);
+
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            productes.add(mapResultSetToProducte(rs));
+        }
+
+        logInfo("Filtratge paginat '" + codiPattern + "' → " + productes.size());
+
+    } catch (SQLException e) {
+        logError("Error filtrant paginat: " + e.getMessage());
+    } finally {
+        tancarRecursos(rs, ps, conn);
+    }
+
+    return productes;
+}
+@Override
+public int countFiltrats(String codiPattern) {
+
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    try {
+        conn = getConnection();
+
+        String sql = """
+            SELECT COUNT(*) AS total
+            FROM Producte
+            WHERE UPPER(pr_codi) LIKE UPPER(?)
+            """;
+
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, "%" + codiPattern + "%");
+
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt("total");
+        }
+
+    } catch (SQLException e) {
+        logError("Error comptant filtrats: " + e.getMessage());
+    } finally {
+        tancarRecursos(rs, ps, conn);
+    }
+
+    return 0;
+}
+
 
 }

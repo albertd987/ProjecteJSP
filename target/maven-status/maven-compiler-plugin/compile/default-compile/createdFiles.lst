@@ -1,10 +1,12 @@
 dao\reports\BOMReportJasper.class
+util\CloudinaryService$2.class
 model\Municipi.class
 abstractdao\AbstractDAOItem.class
 dao\DAOItem.class
 dao\DAOUsuari.class
 dao\IDAOProdItem.class
 dao\IDAOProducte.class
+util\CloudinaryService.class
 dao\DAOProvComp.class
 model\UnitatMesura.class
 dao\DAOMunicipi.class
@@ -14,6 +16,7 @@ model\Usuari.class
 dao\IDAOUsuari.class
 abstractdao\AbstractDAOProvComp.class
 abstractdao\AbstractDAOProvincia.class
+util\CloudinaryService$1.class
 abstractdao\AbstractDAOProveidor.class
 model\ProdItem.class
 util\ConnexioOracle.class
